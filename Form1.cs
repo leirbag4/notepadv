@@ -77,15 +77,16 @@ public partial class Form1 : Form
         scintilla.Styles[Style.Default].Font = "Consolas";
         scintilla.Styles[Style.Default].Size = 10;
 
+        scintilla.StyleClearAll();
+
         scintilla.Styles[Style.LineNumber].BackColor = lineNumBg;
         scintilla.Styles[Style.LineNumber].ForeColor = lineNumFg;
         scintilla.Styles[Style.LineNumber].Font = "Consolas";
         scintilla.Styles[Style.LineNumber].Size = 9;
 
-        scintilla.StyleClearAll();
-
         scintilla.Margins[0].Type = MarginType.Number;
         scintilla.Margins[0].Width = 45;
+        scintilla.Margins[0].BackColor = lineNumBg;
 
         scintilla.Margins[1].Type = MarginType.Symbol;
         scintilla.Margins[1].Width = 16;

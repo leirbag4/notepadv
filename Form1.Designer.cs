@@ -1,0 +1,189 @@
+﻿namespace Notepadv;
+
+partial class Form1
+{
+    private System.ComponentModel.IContainer components = null;
+    private MenuStrip menuStrip;
+    private ToolStripMenuItem fileMenu;
+    private ToolStripMenuItem openMenuItem;
+    private ToolStripMenuItem saveMenuItem;
+    private ToolStripMenuItem saveAsMenuItem;
+    private ToolStripSeparator fileSep1;
+    private ToolStripMenuItem toolStripMenuItem1;
+    private ToolStripMenuItem editMenu;
+    private ToolStripMenuItem copyMenuItem;
+    private ToolStripMenuItem cutMenuItem;
+    private ToolStripMenuItem pasteMenuItem;
+    private StatusStrip statusStrip;
+    private ToolStripStatusLabel encodingLabel;
+    private ToolStripStatusLabel lineColLabel;
+    private ScintillaNET.Scintilla scintilla;
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing && (components != null))
+        {
+            components.Dispose();
+        }
+        base.Dispose(disposing);
+    }
+
+    private void InitializeComponent()
+    {
+        components = new System.ComponentModel.Container();
+        menuStrip = new MenuStrip();
+        fileMenu = new ToolStripMenuItem();
+        openMenuItem = new ToolStripMenuItem();
+        saveMenuItem = new ToolStripMenuItem();
+        saveAsMenuItem = new ToolStripMenuItem();
+        fileSep1 = new ToolStripSeparator();
+        toolStripMenuItem1 = new ToolStripMenuItem();
+        editMenu = new ToolStripMenuItem();
+        copyMenuItem = new ToolStripMenuItem();
+        cutMenuItem = new ToolStripMenuItem();
+        pasteMenuItem = new ToolStripMenuItem();
+        statusStrip = new StatusStrip();
+        encodingLabel = new ToolStripStatusLabel();
+        lineColLabel = new ToolStripStatusLabel();
+        scintilla = new ScintillaNET.Scintilla();
+
+        menuStrip.SuspendLayout();
+        statusStrip.SuspendLayout();
+        SuspendLayout();
+
+        // menuStrip
+        menuStrip.Items.AddRange(new ToolStripItem[] { fileMenu, editMenu });
+        menuStrip.Location = new System.Drawing.Point(0, 0);
+        menuStrip.Name = "menuStrip";
+        menuStrip.Size = new System.Drawing.Size(984, 24);
+        menuStrip.TabIndex = 0;
+        menuStrip.Text = "menuStrip";
+        menuStrip.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        menuStrip.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+        menuStrip.Renderer = new ToolStripProfessionalRenderer(new NotepadvColorTable());
+
+        // fileMenu
+        fileMenu.Text = "File";
+        fileMenu.DropDownItems.AddRange(new ToolStripItem[] {
+            openMenuItem, saveMenuItem, saveAsMenuItem, fileSep1, toolStripMenuItem1
+        });
+        fileMenu.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        // openMenuItem
+        openMenuItem.Text = "Open";
+        openMenuItem.ShortcutKeys = Keys.Control | Keys.O;
+        openMenuItem.Click += OpenMenuItem_Click;
+        openMenuItem.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        openMenuItem.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        // saveMenuItem
+        saveMenuItem.Text = "Save";
+        saveMenuItem.ShortcutKeys = Keys.Control | Keys.S;
+        saveMenuItem.Click += SaveMenuItem_Click;
+        saveMenuItem.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        saveMenuItem.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        // saveAsMenuItem
+        saveAsMenuItem.Text = "Save As...";
+        saveAsMenuItem.ShortcutKeys = Keys.Control | Keys.Shift | Keys.S;
+        saveAsMenuItem.Click += SaveAsMenuItem_Click;
+        saveAsMenuItem.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        saveAsMenuItem.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        // fileSep1
+        fileSep1.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        // toolStripMenuItem1 (Exit)
+        toolStripMenuItem1.Text = "Exit";
+        toolStripMenuItem1.Click += ExitMenuItem_Click;
+        toolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        toolStripMenuItem1.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        // editMenu
+        editMenu.Text = "Edit";
+        editMenu.DropDownItems.AddRange(new ToolStripItem[] {
+            copyMenuItem, cutMenuItem, pasteMenuItem
+        });
+        editMenu.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        // copyMenuItem
+        copyMenuItem.Text = "Copy";
+        copyMenuItem.ShortcutKeys = Keys.Control | Keys.C;
+        copyMenuItem.Click += CopyMenuItem_Click;
+        copyMenuItem.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        copyMenuItem.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        // cutMenuItem
+        cutMenuItem.Text = "Cut";
+        cutMenuItem.ShortcutKeys = Keys.Control | Keys.X;
+        cutMenuItem.Click += CutMenuItem_Click;
+        cutMenuItem.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        cutMenuItem.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        // pasteMenuItem
+        pasteMenuItem.Text = "Paste";
+        pasteMenuItem.ShortcutKeys = Keys.Control | Keys.V;
+        pasteMenuItem.Click += PasteMenuItem_Click;
+        pasteMenuItem.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        pasteMenuItem.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        // statusStrip
+        statusStrip.Items.AddRange(new ToolStripItem[] { encodingLabel, lineColLabel });
+        statusStrip.Location = new System.Drawing.Point(0, 528);
+        statusStrip.Name = "statusStrip";
+        statusStrip.Size = new System.Drawing.Size(984, 22);
+        statusStrip.TabIndex = 1;
+        statusStrip.Text = "statusStrip";
+        statusStrip.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
+        statusStrip.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+        statusStrip.Renderer = new ToolStripProfessionalRenderer(new NotepadvColorTable());
+
+        // encodingLabel
+        encodingLabel.Text = "UTF-8";
+        encodingLabel.Spring = true;
+        encodingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+        encodingLabel.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        // lineColLabel
+        lineColLabel.Text = "Ln 1, Col 1";
+        lineColLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+        lineColLabel.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        // scintilla
+        scintilla.BorderStyle = ScintillaNET.BorderStyle.None;
+        scintilla.Dock = DockStyle.Fill;
+        scintilla.Location = new System.Drawing.Point(0, 24);
+        scintilla.Name = "scintilla";
+        scintilla.Size = new System.Drawing.Size(984, 504);
+        scintilla.TabIndex = 2;
+        scintilla.Text = "";
+        scintilla.WrapMode = ScintillaNET.WrapMode.None;
+        scintilla.ScrollWidth = 1;
+        scintilla.Margins[0].Width = 50;
+        scintilla.Margins[1].Width = 0;
+        scintilla.Margins[2].Width = 0;
+        scintilla.TextChanged += Scintilla_TextChanged;
+        scintilla.UpdateUI += Scintilla_UpdateUI;
+
+        // Form1
+        AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+        AutoScaleMode = AutoScaleMode.Font;
+        ClientSize = new System.Drawing.Size(984, 550);
+        Controls.Add(scintilla);
+        Controls.Add(statusStrip);
+        Controls.Add(menuStrip);
+        MainMenuStrip = menuStrip;
+        Name = "Form1";
+        Text = "Notepadv";
+        StartPosition = FormStartPosition.CenterScreen;
+        BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
+        ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+        Icon = null;
+        menuStrip.ResumeLayout(false);
+        menuStrip.PerformLayout();
+        statusStrip.ResumeLayout(false);
+        statusStrip.PerformLayout();
+        ResumeLayout(false);
+        PerformLayout();
+    }
+}

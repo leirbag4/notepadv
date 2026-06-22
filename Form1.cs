@@ -222,6 +222,22 @@ public partial class Form1 : Form
         lineColLabel.Text = $"Ln {line}, Col {col}";
     }
 
+    private void Form1_DragEnter(object? sender, DragEventArgs e)
+    {
+        if (e.Data is { } data && data.GetDataPresent(DataFormats.FileDrop))
+            e.Effect = DragDropEffects.Copy;
+    }
+
+    private void Form1_DragDrop(object? sender, DragEventArgs e)
+    {
+        if (e.Data is { } data && data.GetData(DataFormats.FileDrop) is string[] files && files.Length > 0)
+        {
+            if (!PromptSaveIfModified())
+                return;
+            OpenFile(files[0]);
+        }
+    }
+
     protected override void OnFormClosing(FormClosingEventArgs e)
     {
         base.OnFormClosing(e);

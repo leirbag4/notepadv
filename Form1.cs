@@ -99,6 +99,7 @@ public partial class Form1 : Form
         DarkTitleBarHelper.UseImmersiveDarkMode(Handle, true);
         _styleManager = new StyleManager(scintilla);
         _styleManager.Apply("none");
+        langNone.Checked = true;
         _languageDetector = new LanguageDetector();
         scintilla.BiDirectionality = BiDirectionalDisplayType.Disabled;
         Width = Config.Width;

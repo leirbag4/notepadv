@@ -320,7 +320,7 @@ partial class Form1
         StartPosition = FormStartPosition.CenterScreen;
         BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
         ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
-        Icon = null;
+        Icon = Properties.Resources.app_icon;
         menuStrip.ResumeLayout(false);
         menuStrip.PerformLayout();
         statusStrip.ResumeLayout(false);

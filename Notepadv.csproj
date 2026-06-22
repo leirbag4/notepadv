@@ -6,10 +6,15 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>Res\app_icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Scintilla.NET" Version="5.3.2.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Res\app_icon.ico" />
   </ItemGroup>
 
   <ItemGroup>

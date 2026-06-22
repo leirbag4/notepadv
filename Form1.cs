@@ -3,6 +3,7 @@ using ScintillaNET;
 using Notepadv.LangStyles;
 using Notepadv.SaveData;
 using Notepadv.UI;
+using Notepadv.UI.Style;
 
 namespace Notepadv;
 
@@ -95,6 +96,7 @@ public partial class Form1 : Form
     {
         Config.Load();
         InitializeComponent();
+        DarkTitleBarHelper.UseImmersiveDarkMode(Handle, true);
         _styleManager = new StyleManager(scintilla);
         _styleManager.Apply("none");
         _languageDetector = new LanguageDetector();

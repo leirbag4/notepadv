@@ -14,6 +14,7 @@ public class DarkForm : Form
         FormBorderStyle = FormBorderStyle.FixedToolWindow;
         MaximizeBox = false;
         StartPosition = FormStartPosition.CenterParent;
+        Load += (_, _) => DarkTitleBarHelper.UseImmersiveDarkMode(Handle, true);
     }
 
     public void ShowMe(ContainerControl? parent)

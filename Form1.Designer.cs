@@ -86,7 +86,7 @@ partial class Form1
         menuStrip.Text = "menuStrip";
         menuStrip.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
         menuStrip.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
-        menuStrip.Renderer = new ToolStripProfessionalRenderer(new NotepadvColorTable());
+        menuStrip.Renderer = new NotepadvRenderer();
 
         // fileMenu
         fileMenu.Text = "File";
@@ -233,7 +233,7 @@ partial class Form1
         statusStrip.Text = "statusStrip";
         statusStrip.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
         statusStrip.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
-        statusStrip.Renderer = new ToolStripProfessionalRenderer(new NotepadvColorTable());
+        statusStrip.Renderer = new NotepadvRenderer();
 
         // encodingLabel
         encodingLabel.Text = "UTF-8";

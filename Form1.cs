@@ -45,6 +45,26 @@ public class NotepadvColorTable : ProfessionalColorTable
     public override Color MenuStripGradientEnd => DarkBg;
 }
 
+public class NotepadvRenderer : ToolStripProfessionalRenderer
+{
+    private static readonly Color VioletBorder = Color.FromArgb(0x93, 0x26, 0xFF);
+
+    public NotepadvRenderer() : base(new NotepadvColorTable()) { }
+
+    protected override void OnRenderToolStripBorder(ToolStripRenderEventArgs e)
+    {
+        if (e.ToolStrip is StatusStrip)
+        {
+            using var pen = new Pen(VioletBorder);
+            e.Graphics.DrawLine(pen, 0, 0, e.ToolStrip.Width, 0);
+        }
+        else
+        {
+            base.OnRenderToolStripBorder(e);
+        }
+    }
+}
+
 public partial class Form1 : Form
 {
     private string? _currentFilePath;

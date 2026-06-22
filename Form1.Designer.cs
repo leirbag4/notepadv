@@ -14,6 +14,17 @@ partial class Form1
     private ToolStripMenuItem copyMenuItem;
     private ToolStripMenuItem cutMenuItem;
     private ToolStripMenuItem pasteMenuItem;
+    private ToolStripMenuItem languageMenu;
+    private ToolStripMenuItem langNone;
+    private ToolStripMenuItem langCSharp;
+    private ToolStripMenuItem langCpp;
+    private ToolStripMenuItem langJavaScript;
+    private ToolStripMenuItem langPython;
+    private ToolStripMenuItem langJava;
+    private ToolStripMenuItem langPhp;
+    private ToolStripMenuItem langHtml;
+    private ToolStripMenuItem langCss;
+    private ToolStripMenuItem langMarkdown;
     private StatusStrip statusStrip;
     private ToolStripStatusLabel encodingLabel;
     private ToolStripStatusLabel lineColLabel;
@@ -42,6 +53,17 @@ partial class Form1
         copyMenuItem = new ToolStripMenuItem();
         cutMenuItem = new ToolStripMenuItem();
         pasteMenuItem = new ToolStripMenuItem();
+        languageMenu = new ToolStripMenuItem();
+        langNone = new ToolStripMenuItem();
+        langCSharp = new ToolStripMenuItem();
+        langCpp = new ToolStripMenuItem();
+        langJavaScript = new ToolStripMenuItem();
+        langPython = new ToolStripMenuItem();
+        langJava = new ToolStripMenuItem();
+        langPhp = new ToolStripMenuItem();
+        langHtml = new ToolStripMenuItem();
+        langCss = new ToolStripMenuItem();
+        langMarkdown = new ToolStripMenuItem();
         statusStrip = new StatusStrip();
         encodingLabel = new ToolStripStatusLabel();
         lineColLabel = new ToolStripStatusLabel();
@@ -52,7 +74,7 @@ partial class Form1
         SuspendLayout();
 
         // menuStrip
-        menuStrip.Items.AddRange(new ToolStripItem[] { fileMenu, editMenu });
+        menuStrip.Items.AddRange(new ToolStripItem[] { fileMenu, editMenu, languageMenu });
         menuStrip.Location = new System.Drawing.Point(0, 0);
         menuStrip.Name = "menuStrip";
         menuStrip.Size = new System.Drawing.Size(984, 24);
@@ -126,6 +148,64 @@ partial class Form1
         pasteMenuItem.Click += PasteMenuItem_Click;
         pasteMenuItem.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
         pasteMenuItem.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        // languageMenu
+        languageMenu.Text = "Language";
+        languageMenu.DropDownItems.AddRange(new ToolStripItem[] {
+            langNone, langCSharp, langCpp, langJavaScript, langPython,
+            langJava, langPhp, langHtml, langCss, langMarkdown
+        });
+        languageMenu.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        langNone.Text = "None";
+        langNone.Click += LangMenuItem_Click;
+        langNone.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        langNone.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        langCSharp.Text = "C#";
+        langCSharp.Click += LangMenuItem_Click;
+        langCSharp.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        langCSharp.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        langCpp.Text = "C++";
+        langCpp.Click += LangMenuItem_Click;
+        langCpp.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        langCpp.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        langJavaScript.Text = "JavaScript";
+        langJavaScript.Click += LangMenuItem_Click;
+        langJavaScript.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        langJavaScript.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        langPython.Text = "Python";
+        langPython.Click += LangMenuItem_Click;
+        langPython.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        langPython.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        langJava.Text = "Java";
+        langJava.Click += LangMenuItem_Click;
+        langJava.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        langJava.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        langPhp.Text = "PHP";
+        langPhp.Click += LangMenuItem_Click;
+        langPhp.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        langPhp.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        langHtml.Text = "HTML";
+        langHtml.Click += LangMenuItem_Click;
+        langHtml.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        langHtml.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        langCss.Text = "CSS";
+        langCss.Click += LangMenuItem_Click;
+        langCss.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        langCss.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        langMarkdown.Text = "Markdown";
+        langMarkdown.Click += LangMenuItem_Click;
+        langMarkdown.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        langMarkdown.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
 
         // statusStrip
         statusStrip.Items.AddRange(new ToolStripItem[] { encodingLabel, lineColLabel });

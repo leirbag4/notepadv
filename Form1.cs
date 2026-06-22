@@ -1,5 +1,6 @@
 using System.Text;
 using ScintillaNET;
+using Notepadv.LangStyles;
 
 namespace Notepadv;
 
@@ -48,11 +49,13 @@ public partial class Form1 : Form
     private string? _currentFilePath;
     private bool _isModified;
     private Encoding _currentEncoding = Encoding.UTF8;
+    private StyleManager _styleManager = null!;
 
     public Form1()
     {
         InitializeComponent();
         ConfigureScintillaDarkTheme();
+        _styleManager = new StyleManager(scintilla);
     }
 
     private void ConfigureScintillaDarkTheme()
@@ -245,6 +248,19 @@ public partial class Form1 : Form
     private void PasteMenuItem_Click(object? sender, EventArgs e)
     {
         scintilla.Paste();
+    }
+
+    private void LangMenuItem_Click(object? sender, EventArgs e)
+    {
+        if (sender is ToolStripMenuItem item && item.Text is { } lang)
+        {
+            _styleManager.Apply(lang);
+
+            foreach (ToolStripMenuItem langItem in languageMenu.DropDownItems)
+                langItem.Checked = false;
+
+            item.Checked = true;
+        }
     }
 
     private void Scintilla_TextChanged(object? sender, EventArgs e)

@@ -14,6 +14,8 @@ partial class Form1
     private ToolStripMenuItem copyMenuItem;
     private ToolStripMenuItem cutMenuItem;
     private ToolStripMenuItem pasteMenuItem;
+    private ToolStripMenuItem viewMenu;
+    private ToolStripMenuItem resetZoomMenuItem;
     private ToolStripMenuItem languageMenu;
     private ToolStripMenuItem langNone;
     private ToolStripMenuItem langCSharp;
@@ -53,6 +55,8 @@ partial class Form1
         copyMenuItem = new ToolStripMenuItem();
         cutMenuItem = new ToolStripMenuItem();
         pasteMenuItem = new ToolStripMenuItem();
+        viewMenu = new ToolStripMenuItem();
+        resetZoomMenuItem = new ToolStripMenuItem();
         languageMenu = new ToolStripMenuItem();
         langNone = new ToolStripMenuItem();
         langCSharp = new ToolStripMenuItem();
@@ -74,7 +78,7 @@ partial class Form1
         SuspendLayout();
 
         // menuStrip
-        menuStrip.Items.AddRange(new ToolStripItem[] { fileMenu, editMenu, languageMenu });
+        menuStrip.Items.AddRange(new ToolStripItem[] { fileMenu, editMenu, viewMenu, languageMenu });
         menuStrip.Location = new System.Drawing.Point(0, 0);
         menuStrip.Name = "menuStrip";
         menuStrip.Size = new System.Drawing.Size(984, 24);
@@ -148,6 +152,19 @@ partial class Form1
         pasteMenuItem.Click += PasteMenuItem_Click;
         pasteMenuItem.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
         pasteMenuItem.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        // viewMenu
+        viewMenu.Text = "View";
+        viewMenu.DropDownItems.AddRange(new ToolStripItem[] {
+            resetZoomMenuItem
+        });
+        viewMenu.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        // resetZoomMenuItem
+        resetZoomMenuItem.Text = "Reset Zoom";
+        resetZoomMenuItem.Click += ResetZoomMenuItem_Click;
+        resetZoomMenuItem.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        resetZoomMenuItem.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
 
         // languageMenu
         languageMenu.Text = "Language";

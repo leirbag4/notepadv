@@ -219,6 +219,11 @@ public partial class Form1 : Form
         Close();
     }
 
+    private void ResetZoomMenuItem_Click(object? sender, EventArgs e)
+    {
+        scintilla.Zoom = 0;
+    }
+
     private void CopyMenuItem_Click(object? sender, EventArgs e)
     {
         if (scintilla.SelectionEnd > scintilla.SelectionStart)

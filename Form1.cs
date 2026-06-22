@@ -92,6 +92,7 @@ public partial class Form1 : Form
     private LanguageDetector _languageDetector = null!;
     private bool _pendingDetection;
     private FindUI? _findUI;
+    private GoToUI? _goToUI;
 
     public Form1()
     {
@@ -109,6 +110,7 @@ public partial class Form1 : Form
 
         scintilla.ClearCmdKey(Keys.Control | Keys.F);
         scintilla.ClearCmdKey(Keys.Control | Keys.H);
+        scintilla.ClearCmdKey(Keys.Control | Keys.G);
     }
 
     private string FileTitle => _currentFilePath != null ? Path.GetFileName(_currentFilePath) : "Untitled";
@@ -369,6 +371,11 @@ public partial class Form1 : Form
             ShowFindUI(true);
             return true;
         }
+        if (keyData == (Keys.Control | Keys.G))
+        {
+            ShowGoToUI();
+            return true;
+        }
         return base.ProcessCmdKey(ref msg, keyData);
     }
 
@@ -395,6 +402,34 @@ public partial class Form1 : Form
             Controls.Remove(_findUI);
             _findUI.Dispose();
             _findUI = null;
+            scintilla.Focus();
+        }
+    }
+
+    private void ShowGoToUI()
+    {
+        if (_goToUI != null)
+        {
+            Controls.Remove(_goToUI);
+            _goToUI.Dispose();
+        }
+
+        _goToUI = new GoToUI(scintilla);
+        _goToUI.Location = new Point(
+            scintilla.Left + (scintilla.Width - _goToUI.Width) / 2,
+            scintilla.Top + (scintilla.Height - _goToUI.Height) / 2);
+        _goToUI.Close += OnGoToUIClose;
+        Controls.Add(_goToUI);
+        _goToUI.BringToFront();
+    }
+
+    private void OnGoToUIClose()
+    {
+        if (_goToUI != null)
+        {
+            Controls.Remove(_goToUI);
+            _goToUI.Dispose();
+            _goToUI = null;
             scintilla.Focus();
         }
     }

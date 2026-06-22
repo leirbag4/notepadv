@@ -246,6 +246,9 @@ partial class Form1
         scintilla.UpdateUI += Scintilla_UpdateUI;
 
         // Form1
+        AllowDrop = true;
+        DragEnter += Form1_DragEnter;
+        DragDrop += Form1_DragDrop;
         AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new System.Drawing.Size(984, 550);

@@ -50,12 +50,15 @@ public partial class Form1 : Form
     private bool _isModified;
     private Encoding _currentEncoding = Encoding.UTF8;
     private StyleManager _styleManager = null!;
+    private LanguageDetector _languageDetector = null!;
+    private bool _pendingDetection;
 
     public Form1()
     {
         InitializeComponent();
         _styleManager = new StyleManager(scintilla);
         _styleManager.Apply("none");
+        _languageDetector = new LanguageDetector();
         scintilla.BiDirectionality = BiDirectionalDisplayType.Disabled;
     }
 
@@ -193,6 +196,7 @@ public partial class Form1 : Form
 
     private void PasteMenuItem_Click(object? sender, EventArgs e)
     {
+        _pendingDetection = true;
         scintilla.Paste();
     }
 
@@ -209,10 +213,37 @@ public partial class Form1 : Form
         }
     }
 
+
+
     private void Scintilla_TextChanged(object? sender, EventArgs e)
     {
         _isModified = true;
         UpdateTitle();
+
+        if (_pendingDetection)
+        {
+            _pendingDetection = false;
+            AutoDetectLanguage();
+        }
+    }
+
+    private void AutoDetectLanguage()
+    {
+        string detected = _languageDetector.Detect(scintilla.Text);
+        if (detected != "none" && !string.Equals(detected, _styleManager.Current?.Name, StringComparison.OrdinalIgnoreCase))
+        {
+            foreach (ToolStripMenuItem item in languageMenu.DropDownItems)
+            {
+                if (string.Equals(item.Text, detected, StringComparison.OrdinalIgnoreCase) && item.Text is { } lang)
+                {
+                    _styleManager.Apply(lang);
+                    foreach (ToolStripMenuItem langItem in languageMenu.DropDownItems)
+                        langItem.Checked = false;
+                    item.Checked = true;
+                    break;
+                }
+            }
+        }
     }
 
     private void Scintilla_UpdateUI(object? sender, UpdateUIEventArgs e)

@@ -68,6 +68,17 @@ public class NotepadvRenderer : ToolStripProfessionalRenderer
             base.OnRenderToolStripBorder(e);
         }
     }
+
+    protected override void OnRenderItemCheck(ToolStripItemImageRenderEventArgs e)
+    {
+        var rect = e.ImageRectangle;
+        var centerX = rect.X + rect.Width / 2;
+        var centerY = rect.Y + rect.Height / 2;
+        var radius = 4;
+        using var brush = new SolidBrush(Color.FromArgb(0x93, 0x26, 0xFF));
+        e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+        e.Graphics.FillEllipse(brush, centerX - radius, centerY - radius, radius * 2, radius * 2);
+    }
 }
 
 public partial class Form1 : Form

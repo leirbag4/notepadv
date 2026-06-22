@@ -40,7 +40,7 @@ public class TextBoxAdv : TextBox
 
         if (e.KeyChar == (char)Keys.Return && enableEvents)
         {
-            EnterPressed?.Invoke(this, new KeyPressedEventArgs());
+            EnterPressed?.Invoke(this, new KeyPressedEventArgs(false, false));
             e.Handled = true;
         }
 

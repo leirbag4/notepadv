@@ -35,6 +35,7 @@ public abstract class LangStyleBase : ILangStyle
         Editor.CaretLineBackColor = CColor(34, 33, 30);
         Editor.CaretForeColor = CColor(102, 51, 153);
         Editor.CaretWidth = 2;
+        Editor.CaretLineVisible = true;
         Editor.AdditionalSelectionTyping = true;
         Editor.AdditionalCaretForeColor = CColor(81, 69, 93);
         Styles[Style.BraceLight].BackColor = CColor(71, 46, 94);

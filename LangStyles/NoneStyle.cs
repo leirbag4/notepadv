@@ -27,5 +27,7 @@ public class NoneStyle : LangStyleBase
         Editor.Margins[0].BackColor = Color.FromArgb(37, 37, 38);
         Editor.Margins[1].Width = 0;
         Editor.Margins[2].Width = 0;
+
+        SetSelectionStyle();
     }
 }

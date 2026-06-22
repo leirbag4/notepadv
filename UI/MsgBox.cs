@@ -30,7 +30,6 @@ public enum OptionResult
 
 public partial class MsgBox : DarkForm
 {
-    private static string? _resDir;
     private static ContainerControl? _mainControl;
 
     private DialogButtons _currButtons;
@@ -42,10 +41,6 @@ public partial class MsgBox : DarkForm
 
     private const int _abort = 0, _cancel = 1, _ignore = 2, _no = 3,
                       _ok = 4, _retry = 5, _yes = 6;
-
-    private static string ResDir =>
-        _resDir ??= Path.Combine(
-            Path.GetDirectoryName(typeof(MsgBox).Assembly.Location) ?? ".", "Res", "Dialogs");
 
     public static void Setup(ContainerControl control)
     {
@@ -181,17 +176,14 @@ public partial class MsgBox : DarkForm
 
     private void SetupIcon(DialogIcon dialogIcon)
     {
-        var name = dialogIcon switch
+        icon.Image = dialogIcon switch
         {
-            DialogIcon.Question => "dialog_question_med.png",
-            DialogIcon.Info => "dialog_info_med.png",
-            DialogIcon.Warning => "dialog_warning_info_med.png",
-            DialogIcon.Error => "dialog_error_info_med.png",
-            _ => "dialog_question_med.png"
+            DialogIcon.Question => Properties.Resources.dialog_question_med,
+            DialogIcon.Info => Properties.Resources.dialog_info_med,
+            DialogIcon.Warning => Properties.Resources.dialog_warning_info_med,
+            DialogIcon.Error => Properties.Resources.dialog_error_info_med,
+            _ => Properties.Resources.dialog_question_med
         };
-        var path = Path.Combine(ResDir, name);
-        if (File.Exists(path))
-            icon.Image = Image.FromFile(path);
     }
 
     private void SetupButtons(DialogButtons buttons)

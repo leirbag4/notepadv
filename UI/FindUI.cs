@@ -18,10 +18,6 @@ public partial class FindUI : UserControl
     private string ReplaceText { get => replaceInput.Text; set => replaceInput.Text = value; }
     private ComboBoxAdv? _lastFocusedInput;
 
-    private static string? _resDir;
-    private static string ResDir =>
-        _resDir ??= Path.Combine(
-            Path.GetDirectoryName(typeof(FindUI).Assembly.Location) ?? ".", "Res");
 
     public bool OptionsVisible
     {
@@ -76,17 +72,6 @@ public partial class FindUI : UserControl
 
         OptionsVisible = false;
         FindText = _editor.SelectedText;
-
-        // Load button images
-        LoadImage(closeButton, "mmenu_mini_remove.png");
-        LoadImage(optionsButton, "mmenu_mini_find.png");
-    }
-
-    private static void LoadImage(ButtonAdv btn, string name)
-    {
-        var path = Path.Combine(ResDir, name);
-        if (File.Exists(path))
-            btn.Image = Image.FromFile(path);
     }
 
     private void OnOptionCheckedChanged(object? sender, EventArgs e)

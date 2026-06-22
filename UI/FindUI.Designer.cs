@@ -47,6 +47,7 @@ partial class FindUI
         closeButton.CStyle = ButtonAdv.CustomStyle.SOLID_NO_BORDERS;
         closeButton.FocusColor = Color.FromArgb(0, 122, 204);
         closeButton.FocusEnabled = true;
+        closeButton.Image = Properties.Resources.mmenu_mini_remove;
         closeButton.Location = new Point(192, 6);
         closeButton.Name = "closeButton";
         closeButton.processEnterKey = true;
@@ -126,6 +127,7 @@ partial class FindUI
         optionsButton.CStyle = ButtonAdv.CustomStyle.SOLID_NO_BORDERS;
         optionsButton.FocusColor = Color.FromArgb(24, 81, 115);
         optionsButton.FocusEnabled = false;
+        optionsButton.Image = Properties.Resources.mmenu_mini_find;
         optionsButton.Location = new Point(6, 8);
         optionsButton.Name = "optionsButton";
         optionsButton.processEnterKey = true;

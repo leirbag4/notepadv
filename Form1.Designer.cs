@@ -86,6 +86,7 @@ partial class Form1
         menuStrip.Text = "menuStrip";
         menuStrip.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
         menuStrip.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+        menuStrip.Padding = new System.Windows.Forms.Padding(0, 0, 0, 2);
         menuStrip.Renderer = new NotepadvRenderer();
 
         // fileMenu

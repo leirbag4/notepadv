@@ -106,18 +106,16 @@ public partial class Form1 : Form
     {
         if (filePath == null) return;
         string? ext = Path.GetExtension(filePath);
-        if (ext != null && _extLangMap.TryGetValue(ext, out var lang))
+        string? lang = ext != null && _extLangMap.TryGetValue(ext, out var mapped) ? mapped : null;
+        foreach (ToolStripMenuItem item in languageMenu.DropDownItems)
         {
-            foreach (ToolStripMenuItem item in languageMenu.DropDownItems)
+            if (string.Equals(item.Text, lang ?? "None", StringComparison.OrdinalIgnoreCase) && item.Text is { } name)
             {
-                if (string.Equals(item.Text, lang, StringComparison.OrdinalIgnoreCase) && item.Text is { } name)
-                {
-                    _styleManager.Apply(name);
-                    foreach (ToolStripMenuItem i in languageMenu.DropDownItems)
-                        i.Checked = false;
-                    item.Checked = true;
-                    break;
-                }
+                _styleManager.Apply(name);
+                foreach (ToolStripMenuItem i in languageMenu.DropDownItems)
+                    i.Checked = false;
+                item.Checked = true;
+                break;
             }
         }
     }

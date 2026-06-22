@@ -5,6 +5,8 @@ namespace Notepadv.SaveData;
 
 public sealed class Config
 {
+    public static string Version => "1.0.0";
+
     private static readonly string ConfigDir = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "notepadv");
 

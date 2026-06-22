@@ -36,16 +36,35 @@
 - Added `viewMenu` with `resetZoomMenuItem` between Edit and Language in the menu strip
 - `ResetZoomMenuItem_Click` sets `scintilla.Zoom = 0`
 
-## Session 6 — Divider Lines
+## Session 6 — Divider Lines & Checkmark
 - Created `NotepadvRenderer` extending `ToolStripProfessionalRenderer`
 - Overrides `OnRenderToolStripBorder`:
   - MenuStrip bottom border: 2px line in `#4A365E` (with 2px bottom padding on the menu strip)
   - StatusStrip top border: 1px line in `#30233D`
 - Overrides `OnRenderItemCheck`: draws a solid filled circle in `#9326FF` instead of checkmark
+- Added `File > About` menu item
+
+## Session 7 — Custom Dialogs & Overlay
+- Created `UI/Style/SimpleOverlay.cs` — semi-transparent black overlay (50% opacity) for modal dialogs
+- Created `UI/Controls/DarkForm.cs` — base form class with `ShowMe()` wrapping `ShowDialog()` + overlay, custom border painting, Escape to close
+- Created `UI/VampGraphics/VampirioGraphics.cs` — `FillRect` helper for border painting
+- Created custom controls (`ButtonAdv`, `LabelAdv`, `PictureBoxAdv`, `GroupBoxAdv`, `TextBoxAdv`) with dark theme styling
+- Adapted `MsgBox.cs` — replaces native `MessageBox` with custom dark dialog; supports `DialogButtons`, `DialogIcon`, custom button text
+- Adapted `InputMsgBox.cs` — input dialog with textbox, ok/cancel, Enter key support
+- Created `AboutUI.cs` — About dialog with version, links (opens in browser), close button
+- Replaced all `MessageBox.Show()` calls in `Form1.cs` with `MsgBox.Show()`
+- Added `Config.Version` property
 
 ## Relevant Files
 - `Form1.cs` — main form logic
 - `Form1.Designer.cs` — UI layout
 - `SaveData/Config.cs` — config persistence
 - `LangStyles/` — per-language syntax highlighting
+- `UI/Style/SimpleOverlay.cs` — overlay form
+- `UI/Controls/DarkForm.cs` — base modal dialog form
+- `UI/Controls/ButtonAdv.cs`, `LabelAdv.cs`, `PictureBoxAdv.cs`, `GroupBoxAdv.cs`, `TextBoxAdv.cs` — custom controls
+- `UI/MsgBox.cs` + `.Designer.cs` — custom message box
+- `UI/InputMsgBox.cs` + `.Designer.cs` — custom input dialog
+- `UI/AboutUI.cs` + `.Designer.cs` — About dialog
+- `Res/Dialogs/` — dialog icon images
 - `AGENTS.md` — this file

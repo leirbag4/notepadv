@@ -2,6 +2,7 @@ using System.Text;
 using ScintillaNET;
 using Notepadv.LangStyles;
 using Notepadv.SaveData;
+using Notepadv.UI;
 
 namespace Notepadv;
 
@@ -126,7 +127,7 @@ public partial class Form1 : Form
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"Could not open file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MsgBox.Show(this, "Error", $"Could not open file: {ex.Message}", DialogButtons.OK, DialogIcon.Error);
         }
     }
 
@@ -176,7 +177,7 @@ public partial class Form1 : Form
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"Could not save file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MsgBox.Show(this, "Error", $"Could not save file: {ex.Message}", DialogButtons.OK, DialogIcon.Error);
             return false;
         }
     }
@@ -199,11 +200,7 @@ public partial class Form1 : Form
         if (!_isModified)
             return true;
 
-        var result = MessageBox.Show(
-            $"Do you want to save changes to {FileTitle}?",
-            "Notepadv",
-            MessageBoxButtons.YesNoCancel,
-            MessageBoxIcon.Question);
+        var result = MsgBox.Show(this, "Notepadv", $"Do you want to save changes to {FileTitle}?", DialogButtons.YesNoCancel, DialogIcon.Question);
 
         return result switch
         {
@@ -253,6 +250,12 @@ public partial class Form1 : Form
     private void ExitMenuItem_Click(object? sender, EventArgs e)
     {
         Close();
+    }
+
+    private void AboutMenuItem_Click(object? sender, EventArgs e)
+    {
+        using var about = new AboutUI();
+        about.ShowMe(this);
     }
 
     private void ResetZoomMenuItem_Click(object? sender, EventArgs e)

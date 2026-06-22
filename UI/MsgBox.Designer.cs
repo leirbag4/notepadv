@@ -1,0 +1,153 @@
+using Notepadv.UI.Controls;
+
+namespace Notepadv.UI;
+
+partial class MsgBox
+{
+    private System.ComponentModel.IContainer components = null;
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing && (components != null))
+            components.Dispose();
+        base.Dispose(disposing);
+    }
+
+    private void InitializeComponent()
+    {
+        button2 = new ButtonAdv();
+        groupBoxAdv1 = new GroupBoxAdv();
+        icon = new PictureBoxAdv();
+        descLabel = new LabelAdv();
+        button1 = new ButtonAdv();
+        button0 = new ButtonAdv();
+        groupBoxAdv1.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)icon).BeginInit();
+        SuspendLayout();
+        // 
+        // button2
+        // 
+        button2.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        button2.BackColor = Color.FromArgb(30, 30, 30);
+        button2.BorderColor = Color.FromArgb(25, 25, 25);
+        button2.BorderSize = 2;
+        button2.CStyle = ButtonAdv.CustomStyle.SOLID;
+        button2.FocusEnabled = true;
+        button2.ForeColor = Color.FromArgb(224, 224, 224);
+        button2.Location = new Point(382, 158);
+        button2.Margin = new Padding(4);
+        button2.Name = "button2";
+        button2.processEnterKey = true;
+        button2.SelectedColor = Color.FromArgb(0, 122, 204);
+        button2.Size = new Size(94, 24);
+        button2.TabIndex = 4;
+        button2.Text = "Cancel";
+        button2.UseVisualStyleBackColor = false;
+        // 
+        // groupBoxAdv1
+        // 
+        groupBoxAdv1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        groupBoxAdv1.BackColor = Color.FromArgb(52, 52, 52);
+        groupBoxAdv1.BorderColor = Color.FromArgb(64, 64, 64);
+        groupBoxAdv1.BorderSize = 2;
+        groupBoxAdv1.Controls.Add(icon);
+        groupBoxAdv1.Controls.Add(descLabel);
+        groupBoxAdv1.CStyle = GroupBoxAdv.CustomStyle.SOLID;
+        groupBoxAdv1.Location = new Point(14, 14);
+        groupBoxAdv1.Margin = new Padding(4);
+        groupBoxAdv1.Name = "groupBoxAdv1";
+        groupBoxAdv1.Padding = new Padding(4);
+        groupBoxAdv1.Size = new Size(462, 136);
+        groupBoxAdv1.TabIndex = 3;
+        groupBoxAdv1.TabStop = false;
+        // 
+        // icon
+        // 
+        icon.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+        icon.Image = null;
+        icon.Location = new Point(415, 14);
+        icon.Margin = new Padding(4);
+        icon.Name = "icon";
+        icon.Size = new Size(32, 30);
+        icon.SizeMode = PictureBoxSizeMode.AutoSize;
+        icon.TabIndex = 7;
+        icon.TabStop = false;
+        // 
+        // descLabel
+        // 
+        descLabel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        descLabel.BorderColor = Color.DarkGray;
+        descLabel.BorderSize = 1;
+        descLabel.CStyle = LabelAdv.CustomStyle.NORMAL;
+        descLabel.ForeColor = Color.Silver;
+        descLabel.Location = new Point(16, 14);
+        descLabel.Margin = new Padding(4, 0, 4, 0);
+        descLabel.Name = "descLabel";
+        descLabel.Size = new Size(382, 108);
+        descLabel.TabIndex = 2;
+        descLabel.Text = "...";
+        // 
+        // button1
+        // 
+        button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        button1.BackColor = Color.FromArgb(30, 30, 30);
+        button1.BorderColor = Color.FromArgb(25, 25, 25);
+        button1.BorderSize = 2;
+        button1.CStyle = ButtonAdv.CustomStyle.SOLID;
+        button1.FocusEnabled = true;
+        button1.ForeColor = Color.FromArgb(224, 224, 224);
+        button1.Location = new Point(280, 158);
+        button1.Margin = new Padding(4);
+        button1.Name = "button1";
+        button1.processEnterKey = true;
+        button1.SelectedColor = Color.FromArgb(0, 122, 204);
+        button1.Size = new Size(94, 24);
+        button1.TabIndex = 5;
+        button1.Text = "No";
+        button1.UseVisualStyleBackColor = false;
+        // 
+        // button0
+        // 
+        button0.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        button0.BackColor = Color.FromArgb(30, 30, 30);
+        button0.BorderColor = Color.FromArgb(25, 25, 25);
+        button0.BorderSize = 2;
+        button0.CStyle = ButtonAdv.CustomStyle.SOLID;
+        button0.FocusEnabled = true;
+        button0.ForeColor = Color.FromArgb(224, 224, 224);
+        button0.Location = new Point(178, 158);
+        button0.Margin = new Padding(4);
+        button0.Name = "button0";
+        button0.processEnterKey = true;
+        button0.SelectedColor = Color.FromArgb(0, 122, 204);
+        button0.Size = new Size(94, 24);
+        button0.TabIndex = 6;
+        button0.Text = "Yes";
+        button0.UseVisualStyleBackColor = false;
+        // 
+        // MsgBox
+        // 
+        AutoScaleDimensions = new SizeF(7F, 15F);
+        AutoScaleMode = AutoScaleMode.Font;
+        BackColor = Color.FromArgb(45, 45, 45);
+        ClientSize = new Size(490, 190);
+        Controls.Add(button0);
+        Controls.Add(button1);
+        Controls.Add(button2);
+        Controls.Add(groupBoxAdv1);
+        Margin = new Padding(4);
+        MinimizeBox = false;
+        Name = "MsgBox";
+        groupBoxAdv1.ResumeLayout(false);
+        groupBoxAdv1.PerformLayout();
+        ((System.ComponentModel.ISupportInitialize)icon).EndInit();
+        ResumeLayout(false);
+    }
+
+    private ButtonAdv button2;
+    private GroupBoxAdv groupBoxAdv1;
+    private LabelAdv descLabel;
+    private ButtonAdv button1;
+    private ButtonAdv button0;
+    private PictureBoxAdv icon;
+}

@@ -10,6 +10,8 @@ partial class Form1
     private ToolStripMenuItem saveAsMenuItem;
     private ToolStripSeparator fileSep1;
     private ToolStripMenuItem toolStripMenuItem1;
+    private ToolStripMenuItem helpMenu;
+    private ToolStripMenuItem aboutMenuItem;
     private ToolStripMenuItem editMenu;
     private ToolStripMenuItem copyMenuItem;
     private ToolStripMenuItem cutMenuItem;
@@ -51,6 +53,8 @@ partial class Form1
         saveAsMenuItem = new ToolStripMenuItem();
         fileSep1 = new ToolStripSeparator();
         toolStripMenuItem1 = new ToolStripMenuItem();
+        helpMenu = new ToolStripMenuItem();
+        aboutMenuItem = new ToolStripMenuItem();
         editMenu = new ToolStripMenuItem();
         copyMenuItem = new ToolStripMenuItem();
         cutMenuItem = new ToolStripMenuItem();
@@ -78,7 +82,7 @@ partial class Form1
         SuspendLayout();
 
         // menuStrip
-        menuStrip.Items.AddRange(new ToolStripItem[] { fileMenu, editMenu, viewMenu, languageMenu });
+        menuStrip.Items.AddRange(new ToolStripItem[] { fileMenu, editMenu, viewMenu, languageMenu, helpMenu });
         menuStrip.Location = new System.Drawing.Point(0, 0);
         menuStrip.Name = "menuStrip";
         menuStrip.Size = new System.Drawing.Size(984, 24);
@@ -125,6 +129,19 @@ partial class Form1
         toolStripMenuItem1.Click += ExitMenuItem_Click;
         toolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
         toolStripMenuItem1.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        // helpMenu
+        helpMenu.Text = "Help";
+        helpMenu.DropDownItems.AddRange(new ToolStripItem[] {
+            aboutMenuItem
+        });
+        helpMenu.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        // aboutMenuItem
+        aboutMenuItem.Text = "About";
+        aboutMenuItem.Click += AboutMenuItem_Click;
+        aboutMenuItem.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        aboutMenuItem.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
 
         // editMenu
         editMenu.Text = "Edit";

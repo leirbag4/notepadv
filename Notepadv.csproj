@@ -12,4 +12,11 @@
     <PackageReference Include="Scintilla.NET" Version="5.3.2.9" />
   </ItemGroup>
 
+  <Target Name="CopyRes" AfterTargets="AfterBuild">
+    <ItemGroup>
+      <ResFiles Include="Res\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(ResFiles)" DestinationFolder="$(OutDir)\Res\%(RecursiveDir)" SkipUnchangedFiles="true" />
+  </Target>
+
 </Project>

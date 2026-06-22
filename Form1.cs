@@ -91,6 +91,7 @@ public partial class Form1 : Form
     private StyleManager _styleManager = null!;
     private LanguageDetector _languageDetector = null!;
     private bool _pendingDetection;
+    private FindUI? _findUI;
 
     public Form1()
     {
@@ -105,6 +106,9 @@ public partial class Form1 : Form
         Width = Config.Width;
         Height = Config.Height;
         scintilla.Zoom = Config.ZoomSize;
+
+        scintilla.ClearCmdKey(Keys.Control | Keys.F);
+        scintilla.ClearCmdKey(Keys.Control | Keys.H);
     }
 
     private string FileTitle => _currentFilePath != null ? Path.GetFileName(_currentFilePath) : "Untitled";
@@ -350,6 +354,48 @@ public partial class Form1 : Form
             if (!PromptSaveIfModified())
                 return;
             OpenFile(files[0]);
+        }
+    }
+
+    protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+    {
+        if (keyData == (Keys.Control | Keys.F))
+        {
+            ShowFindUI(false);
+            return true;
+        }
+        if (keyData == (Keys.Control | Keys.H))
+        {
+            ShowFindUI(true);
+            return true;
+        }
+        return base.ProcessCmdKey(ref msg, keyData);
+    }
+
+    private void ShowFindUI(bool replace)
+    {
+        if (_findUI != null)
+        {
+            Controls.Remove(_findUI);
+            _findUI.Dispose();
+        }
+
+        _findUI = new FindUI(scintilla, replace);
+        _findUI.Location = new Point(ClientSize.Width - _findUI.Width - SystemInformation.VerticalScrollBarWidth, scintilla.Top);
+        _findUI.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+        _findUI.Close += OnFindUIClose;
+        Controls.Add(_findUI);
+        _findUI.BringToFront();
+    }
+
+    private void OnFindUIClose()
+    {
+        if (_findUI != null)
+        {
+            Controls.Remove(_findUI);
+            _findUI.Dispose();
+            _findUI = null;
+            scintilla.Focus();
         }
     }
 

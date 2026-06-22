@@ -2,7 +2,7 @@ namespace Notepadv.UI.Controls;
 
 public class ButtonAdv : Button
 {
-    public enum CustomStyle { NORMAL, SOLID }
+    public enum CustomStyle { NORMAL, SOLID, SOLID_NO_BORDERS }
 
     private CustomStyle _customStyle = CustomStyle.NORMAL;
     private Color _borderColor = Color.FromArgb(25, 25, 25);
@@ -61,6 +61,11 @@ public class ButtonAdv : Button
             g.DrawRectangle(borderPen,
                 rect.X + BorderSize / 2, rect.Y + BorderSize / 2,
                 rect.Width - BorderSize, rect.Height - BorderSize);
+        }
+        else if (CStyle == CustomStyle.SOLID_NO_BORDERS)
+        {
+            using var backBrush = new SolidBrush(back);
+            g.FillRectangle(backBrush, rect);
         }
         else
         {

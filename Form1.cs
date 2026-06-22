@@ -1,6 +1,7 @@
 using System.Text;
 using ScintillaNET;
 using Notepadv.LangStyles;
+using Notepadv.SaveData;
 
 namespace Notepadv;
 
@@ -55,11 +56,15 @@ public partial class Form1 : Form
 
     public Form1()
     {
+        Config.Load();
         InitializeComponent();
         _styleManager = new StyleManager(scintilla);
         _styleManager.Apply("none");
         _languageDetector = new LanguageDetector();
         scintilla.BiDirectionality = BiDirectionalDisplayType.Disabled;
+        Width = Config.Width;
+        Height = Config.Height;
+        scintilla.Zoom = Config.ZoomSize;
     }
 
     private string FileTitle => _currentFilePath != null ? Path.GetFileName(_currentFilePath) : "Untitled";
@@ -303,8 +308,14 @@ public partial class Form1 : Form
 
     protected override void OnFormClosing(FormClosingEventArgs e)
     {
-        base.OnFormClosing(e);
         if (!PromptSaveIfModified())
             e.Cancel = true;
+        if (e.Cancel)
+            return;
+        Config.Width = Width;
+        Config.Height = Height;
+        Config.ZoomSize = scintilla.Zoom;
+        Config.Save();
+        base.OnFormClosing(e);
     }
 }

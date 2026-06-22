@@ -2,44 +2,47 @@ using ScintillaNET;
 
 namespace Notepadv.LangStyles;
 
-public class MarkdownStyle : ILangStyle
+public class MarkdownStyle : LangStyleBase
 {
-    public string Name => "Markdown";
+    public override string Name => "Markdown";
 
-    public void Apply(Scintilla scintilla)
+    protected override void OnActivate()
     {
-        scintilla.LexerName = "markdown";
+        Editor.LexerName = "markdown";
+        SetFontStyle();
+        Styles[Style.Default].BackColor = CColor(39, 40, 34);
+        Editor.StyleClearAll();
 
-        ApplyStyles(scintilla);
-    }
+        Styles[Style.Markdown.Default].ForeColor = CColor(215, 215, 215);
+        Styles[Style.Markdown.Header1].ForeColor = CColor(205, 131, 255);
+        Styles[Style.Markdown.Header1].Bold = true;
+        Styles[Style.Markdown.Header2].ForeColor = CColor(205, 131, 255);
+        Styles[Style.Markdown.Header2].Bold = true;
+        Styles[Style.Markdown.Header3].ForeColor = CColor(205, 131, 255);
+        Styles[Style.Markdown.Header3].Bold = true;
+        Styles[Style.Markdown.Header4].ForeColor = CColor(205, 131, 255);
+        Styles[Style.Markdown.Header5].ForeColor = CColor(205, 131, 255);
+        Styles[Style.Markdown.Header6].ForeColor = CColor(205, 131, 255);
+        Styles[Style.Markdown.Strong1].ForeColor = CColor(215, 215, 215);
+        Styles[Style.Markdown.Strong1].Bold = true;
+        Styles[Style.Markdown.Strong2].ForeColor = CColor(215, 215, 215);
+        Styles[Style.Markdown.Strong2].Bold = true;
+        Styles[Style.Markdown.Em1].ForeColor = CColor(215, 215, 215);
+        Styles[Style.Markdown.Em2].ForeColor = CColor(215, 215, 215);
+        Styles[Style.Markdown.Code].ForeColor = CColor(214, 157, 65);
+        Styles[Style.Markdown.Code2].ForeColor = CColor(214, 157, 65);
+        Styles[Style.Markdown.CodeBk].ForeColor = CColor(214, 157, 65);
+        Styles[Style.Markdown.Link].ForeColor = CColor(61, 201, 176);
+        Styles[Style.Markdown.BlockQuote].ForeColor = CColor(0, 178, 45);
+        Styles[Style.Markdown.HRule].ForeColor = CColor(128, 128, 128);
+        Styles[Style.Markdown.UListItem].ForeColor = CColor(215, 215, 215);
+        Styles[Style.Markdown.OListItem].ForeColor = CColor(215, 215, 215);
+        Styles[Style.Markdown.PreChar].ForeColor = CColor(214, 157, 65);
+        Styles[Style.Markdown.Strikeout].ForeColor = CColor(128, 128, 128);
 
-    private static void ApplyStyles(Scintilla scintilla)
-    {
-        scintilla.Styles[Style.Markdown.Default].ForeColor = Color.FromArgb(212, 212, 212);
-        scintilla.Styles[Style.Markdown.Header1].ForeColor = Color.FromArgb(86, 156, 214);
-        scintilla.Styles[Style.Markdown.Header1].Bold = true;
-        scintilla.Styles[Style.Markdown.Header2].ForeColor = Color.FromArgb(86, 156, 214);
-        scintilla.Styles[Style.Markdown.Header2].Bold = true;
-        scintilla.Styles[Style.Markdown.Header3].ForeColor = Color.FromArgb(86, 156, 214);
-        scintilla.Styles[Style.Markdown.Header3].Bold = true;
-        scintilla.Styles[Style.Markdown.Header4].ForeColor = Color.FromArgb(86, 156, 214);
-        scintilla.Styles[Style.Markdown.Header5].ForeColor = Color.FromArgb(86, 156, 214);
-        scintilla.Styles[Style.Markdown.Header6].ForeColor = Color.FromArgb(86, 156, 214);
-        scintilla.Styles[Style.Markdown.Strong1].ForeColor = Color.FromArgb(212, 212, 212);
-        scintilla.Styles[Style.Markdown.Strong1].Bold = true;
-        scintilla.Styles[Style.Markdown.Strong2].ForeColor = Color.FromArgb(212, 212, 212);
-        scintilla.Styles[Style.Markdown.Strong2].Bold = true;
-        scintilla.Styles[Style.Markdown.Em1].ForeColor = Color.FromArgb(212, 212, 212);
-        scintilla.Styles[Style.Markdown.Em2].ForeColor = Color.FromArgb(212, 212, 212);
-        scintilla.Styles[Style.Markdown.Code].ForeColor = Color.FromArgb(206, 145, 120);
-        scintilla.Styles[Style.Markdown.Code2].ForeColor = Color.FromArgb(206, 145, 120);
-        scintilla.Styles[Style.Markdown.CodeBk].ForeColor = Color.FromArgb(206, 145, 120);
-        scintilla.Styles[Style.Markdown.Link].ForeColor = Color.FromArgb(86, 156, 214);
-        scintilla.Styles[Style.Markdown.BlockQuote].ForeColor = Color.FromArgb(106, 153, 85);
-        scintilla.Styles[Style.Markdown.HRule].ForeColor = Color.FromArgb(155, 155, 155);
-        scintilla.Styles[Style.Markdown.UListItem].ForeColor = Color.FromArgb(212, 212, 212);
-        scintilla.Styles[Style.Markdown.OListItem].ForeColor = Color.FromArgb(212, 212, 212);
-        scintilla.Styles[Style.Markdown.PreChar].ForeColor = Color.FromArgb(206, 145, 120);
-        scintilla.Styles[Style.Markdown.Strikeout].ForeColor = Color.FromArgb(155, 155, 155);
+        SetFoldMarginStyle();
+        EnableCodeFolding();
+        SetSelectionStyle();
+        SetLinesNumber(true, 40);
     }
 }

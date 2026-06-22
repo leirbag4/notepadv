@@ -2,37 +2,49 @@ using ScintillaNET;
 
 namespace Notepadv.LangStyles;
 
-public class CSharpStyle : ILangStyle
+public class CSharpStyle : LangStyleBase
 {
-    public string Name => "C#";
+    public override string Name => "C#";
 
-    public void Apply(Scintilla scintilla)
+    private const string CSHARP_LANG_KEYWORDS_CONTROL_FLOW = "if else do while for foreach switch case break continue return goto try";
+    private const string CSHARP_COMMON_CLASSES = "Dictionary List String Object Boolean Decimal Double Char Int16 Int32 Int64 UInt16 UInt32 UInt64";
+    private const string CSHARP_COMMON_CLASSES_2 = "Console File Math DateTime Exception IO Thread";
+    private const string CSHARP_LANG_KEYWORDS = "where var get set value bool byte char class const decimal double enum float int long sbyte short static string struct uint ulong ushort void abstract as base checked default delegate event explicit extern false finally fixed implicit in interface internal is lock namespace new null object operator out override params private protected public readonly ref sealed sizeof stackalloc this throw true typeof unchecked unsafe using virtual";
+    private static readonly List<string> CSHARP_EXTRA_CLASSES = [];
+
+    protected override void OnActivate()
     {
-        scintilla.LexerName = "cpp";
+        Editor.LexerName = "cpp";
+        SetFontStyle();
+        Styles[Style.Default].BackColor = CColor(39, 40, 34);
+        Editor.StyleClearAll();
 
-        scintilla.SetKeywords(0, "abstract as base break case catch checked continue default delegate do else event explicit extern finally fixed for foreach goto if implicit in interface internal is lock namespace new object operator out override params private protected public readonly ref return sealed sizeof stackalloc switch this throw try typeof unchecked unsafe using virtual volatile while async await yield");
-        scintilla.SetKeywords(1, "bool byte char class const decimal double enum float int long sbyte short static string struct uint ulong ushort void null true false var dynamic");
-        scintilla.SetKeywords(2, "where select from join on equals group by order into let ascending descending");
+        Styles[Style.Cpp.Identifier].ForeColor = CColor(215, 215, 215);
+        Styles[Style.Cpp.Comment].ForeColor = CColor(0, 178, 45);
+        Styles[Style.Cpp.CommentLine].ForeColor = CColor(0, 178, 45);
+        Styles[Style.Cpp.CommentLineDoc].ForeColor = CColor(128, 128, 128);
+        Styles[Style.Cpp.Number].ForeColor = CColor(166, 226, 46);
+        Styles[Style.Cpp.Word].ForeColor = CColor(140, 100, 235);
+        Styles[Style.Cpp.Word2].ForeColor = CColor(61, 201, 176);
+        Styles[Style.Cpp.String].ForeColor = CColor(214, 157, 65);
+        Styles[Style.Cpp.StringEol].ForeColor = CColor(214, 175, 90);
+        Styles[Style.Cpp.Character].ForeColor = CColor(163, 21, 21);
+        Styles[Style.Cpp.Verbatim].ForeColor = CColor(214, 157, 65);
+        Styles[Style.Cpp.Operator].ForeColor = CColor(170, 170, 200);
+        Styles[Style.Cpp.Preprocessor].ForeColor = Color.Maroon;
+        Styles[19].ForeColor = CColor(200, 153, 255);
 
-        ApplyStyles(scintilla);
-    }
+        SetInactivePreprocessor(CColor(100, 100, 100));
 
-    private static void ApplyStyles(Scintilla scintilla)
-    {
-        scintilla.Styles[Style.Cpp.Default].ForeColor = Color.FromArgb(212, 212, 212);
-        scintilla.Styles[Style.Cpp.Comment].ForeColor = Color.FromArgb(106, 153, 85);
-        scintilla.Styles[Style.Cpp.CommentLine].ForeColor = Color.FromArgb(106, 153, 85);
-        scintilla.Styles[Style.Cpp.CommentDoc].ForeColor = Color.FromArgb(106, 153, 85);
-        scintilla.Styles[Style.Cpp.CommentLineDoc].ForeColor = Color.FromArgb(106, 153, 85);
-        scintilla.Styles[Style.Cpp.Number].ForeColor = Color.FromArgb(181, 206, 168);
-        scintilla.Styles[Style.Cpp.Word].ForeColor = Color.FromArgb(86, 156, 214);
-        scintilla.Styles[Style.Cpp.Word2].ForeColor = Color.FromArgb(86, 156, 214);
-        scintilla.Styles[Style.Cpp.String].ForeColor = Color.FromArgb(206, 145, 120);
-        scintilla.Styles[Style.Cpp.Character].ForeColor = Color.FromArgb(206, 145, 120);
-        scintilla.Styles[Style.Cpp.Verbatim].ForeColor = Color.FromArgb(206, 145, 120);
-        scintilla.Styles[Style.Cpp.TripleVerbatim].ForeColor = Color.FromArgb(206, 145, 120);
-        scintilla.Styles[Style.Cpp.Operator].ForeColor = Color.FromArgb(212, 212, 212);
-        scintilla.Styles[Style.Cpp.Preprocessor].ForeColor = Color.FromArgb(155, 155, 155);
-        scintilla.Styles[Style.Cpp.GlobalClass].ForeColor = Color.FromArgb(78, 201, 176);
+        Editor.SetKeywords(0, CSHARP_LANG_KEYWORDS);
+        Editor.SetKeywords(3, CSHARP_LANG_KEYWORDS_CONTROL_FLOW);
+
+        var classes = string.Join(" ", CSHARP_EXTRA_CLASSES);
+        Editor.SetKeywords(1, classes + " " + CSHARP_COMMON_CLASSES + " " + CSHARP_COMMON_CLASSES_2);
+
+        SetFoldMarginStyle();
+        EnableCodeFolding();
+        SetSelectionStyle();
+        SetLinesNumber(true, 40);
     }
 }

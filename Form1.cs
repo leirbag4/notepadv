@@ -54,63 +54,9 @@ public partial class Form1 : Form
     public Form1()
     {
         InitializeComponent();
-        ConfigureScintillaDarkTheme();
         _styleManager = new StyleManager(scintilla);
-    }
-
-    private void ConfigureScintillaDarkTheme()
-    {
-        var bg = Color.FromArgb(30, 30, 30);
-        var fg = Color.FromArgb(212, 212, 212);
-        var selBg = Color.FromArgb(38, 79, 120);
-        var lineNumBg = Color.FromArgb(37, 37, 38);
-        var lineNumFg = Color.FromArgb(153, 153, 153);
-        var caretFg = Color.White;
-        var currentLineBg = Color.FromArgb(42, 42, 44);
-
-        scintilla.SetSelectionBackColor(true, selBg);
-        scintilla.SetSelectionForeColor(true, fg);
-        scintilla.CaretForeColor = caretFg;
-        scintilla.CaretLineBackColor = currentLineBg;
-        scintilla.CaretLineVisible = true;
-        scintilla.IndentationGuides = IndentView.LookBoth;
-
-        scintilla.Styles[Style.Default].BackColor = bg;
-        scintilla.Styles[Style.Default].ForeColor = fg;
-        scintilla.Styles[Style.Default].Font = "Consolas";
-        scintilla.Styles[Style.Default].Size = 10;
-
-        scintilla.StyleClearAll();
-
-        scintilla.Styles[Style.LineNumber].BackColor = lineNumBg;
-        scintilla.Styles[Style.LineNumber].ForeColor = lineNumFg;
-        scintilla.Styles[Style.LineNumber].Font = "Consolas";
-        scintilla.Styles[Style.LineNumber].Size = 9;
-
-        scintilla.Margins[0].Type = MarginType.Number;
-        scintilla.Margins[0].Width = 45;
-        scintilla.Margins[0].BackColor = lineNumBg;
-
-        scintilla.Margins[1].Type = MarginType.Symbol;
-        scintilla.Margins[1].Width = 16;
-        scintilla.Margins[1].Sensitive = true;
-        scintilla.Margins[1].Mask = Marker.MaskFolders;
-
-        scintilla.Margins[2].Type = MarginType.Symbol;
-        scintilla.Margins[2].Width = 16;
-        scintilla.Margins[2].Mask = Marker.MaskFolders;
-
-        scintilla.SetFoldMarginColor(true, bg);
-        scintilla.SetFoldMarginHighlightColor(true, Color.FromArgb(60, 60, 60));
-
+        _styleManager.Apply("none");
         scintilla.BiDirectionality = BiDirectionalDisplayType.Disabled;
-
-        scintilla.Styles[Style.BraceLight].BackColor = Color.FromArgb(51, 51, 51);
-        scintilla.Styles[Style.BraceLight].ForeColor = Color.White;
-        scintilla.Styles[Style.BraceBad].ForeColor = Color.Red;
-
-        scintilla.Styles[Style.IndentGuide].ForeColor = Color.FromArgb(60, 60, 60);
-        scintilla.Styles[Style.IndentGuide].BackColor = bg;
     }
 
     private string FileTitle => _currentFilePath != null ? Path.GetFileName(_currentFilePath) : "Untitled";

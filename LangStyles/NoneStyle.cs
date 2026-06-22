@@ -2,13 +2,30 @@ using ScintillaNET;
 
 namespace Notepadv.LangStyles;
 
-public class NoneStyle : ILangStyle
+public class NoneStyle : LangStyleBase
 {
-    public string Name => "None";
+    public override string Name => "None";
 
-    public void Apply(Scintilla scintilla)
+    protected override void OnActivate()
     {
-        scintilla.LexerName = null;
-        scintilla.StyleClearAll();
+        Editor.LexerName = null;
+
+        var bg = Color.FromArgb(30, 30, 30);
+        var fg = Color.FromArgb(212, 212, 212);
+
+        Styles[Style.Default].BackColor = bg;
+        Styles[Style.Default].ForeColor = fg;
+        Styles[Style.Default].Font = "Consolas";
+        Styles[Style.Default].Size = 10;
+        Editor.StyleClearAll();
+
+        Styles[Style.LineNumber].BackColor = Color.FromArgb(37, 37, 38);
+        Styles[Style.LineNumber].ForeColor = Color.FromArgb(153, 153, 153);
+
+        Editor.Margins[0].Type = MarginType.Number;
+        Editor.Margins[0].Width = 45;
+        Editor.Margins[0].BackColor = Color.FromArgb(37, 37, 38);
+        Editor.Margins[1].Width = 0;
+        Editor.Margins[2].Width = 0;
     }
 }

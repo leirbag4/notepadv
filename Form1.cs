@@ -47,7 +47,7 @@ public class NotepadvColorTable : ProfessionalColorTable
 
 public class NotepadvRenderer : ToolStripProfessionalRenderer
 {
-    private static readonly Color VioletLine = Color.FromArgb(0x93, 0x26, 0xFF);
+    private static readonly Color VioletLine = Color.FromArgb(0x4A, 0x36, 0x5E);
 
     public NotepadvRenderer() : base(new NotepadvColorTable()) { }
 
@@ -55,7 +55,7 @@ public class NotepadvRenderer : ToolStripProfessionalRenderer
     {
         if (e.ToolStrip is StatusStrip)
         {
-            using var pen = new Pen(VioletLine);
+            using var pen = new Pen(Color.FromArgb(0x30, 0x23, 0x3D));
             e.Graphics.DrawLine(pen, 0, 0, e.ToolStrip.Width, 0);
         }
         else if (e.ToolStrip is MenuStrip)

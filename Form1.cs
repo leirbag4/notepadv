@@ -93,7 +93,7 @@ public partial class Form1 : Form
     private bool _pendingDetection;
     private FindUI? _findUI;
 
-    public Form1()
+    public Form1(string? filePath = null)
     {
         Config.Load();
         InitializeComponent();
@@ -110,6 +110,9 @@ public partial class Form1 : Form
         scintilla.ClearCmdKey(Keys.Control | Keys.F);
         scintilla.ClearCmdKey(Keys.Control | Keys.H);
         scintilla.ClearCmdKey(Keys.Control | Keys.G);
+
+        if (filePath != null)
+            OpenFile(filePath);
     }
 
     private string FileTitle => _currentFilePath != null ? Path.GetFileName(_currentFilePath) : "Untitled";

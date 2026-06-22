@@ -8,9 +8,9 @@ static class Program
     [STAThread]
     static void Main()
     {
-        // To customize application configuration such as set high DPI settings or default font,
-        // see https://aka.ms/applicationconfiguration.
         ApplicationConfiguration.Initialize();
-        Application.Run(new Form1());
+        var args = Environment.GetCommandLineArgs();
+        var filePath = args.Length > 1 ? args[1] : null;
+        Application.Run(new Form1(filePath));
     }    
 }

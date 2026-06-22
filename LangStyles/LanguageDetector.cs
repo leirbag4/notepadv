@@ -27,13 +27,14 @@ public class LanguageDetector
             [
                 new Regex(@"\busing\s+(System|Microsoft|Windows|Forms|Data|Text|IO|Collections|Linq|Net|Threading|Tasks?|Security|Drawing|Web|Configuration|Reflection|Globalization)\b", RegexOptions.Multiline),
                 new Regex(@"\bConsole\.\s*(Write|Read|Log|WriteLine|ReadLine)\b", RegexOptions.Multiline),
-                new Regex(@"\b(public|private|protected|internal)\s+(static\s+)?(class|struct|interface|enum|record)\s+\w+", RegexOptions.Multiline),
-                new Regex(@"\b(namespace|using\s+static|async|await|yield\s+return|var\s+\w+\s*=\s*new)\b", RegexOptions.Multiline),
+                new Regex(@"\b(namespace\s+\w+|using\s+static|async\s+\w+|await)\b", RegexOptions.Multiline),
                 new Regex(@"\b(void|int|string|bool|double|float|long|decimal|char|byte)\[\]\s+\w+\s*=\s*(new|null)\b", RegexOptions.Multiline),
+                new Regex(@"\b(StringBuilder|IEnumerable|IQueryable|IList|ICollection|IDictionary|IEnumerator)\b", RegexOptions.Multiline),
             ],
             [
+                new Regex(@"\b(public|private|protected|internal)\s+(static\s+)?(class|struct|interface|enum|record)\s+\w+", RegexOptions.Multiline),
                 new Regex(@"\b(throw|try|catch|finally)\s", RegexOptions.Multiline),
-                new Regex(@"\b(Linq|var|dynamic|record|init|set|get|value|async|await)\b", RegexOptions.Multiline),
+                new Regex(@"\b(Linq|dynamic|record|init|set|get|value)\b", RegexOptions.Multiline),
                 new Regex(@"\[.*(HttpGet|HttpPost|Route|Serializable|DataContract).*\]", RegexOptions.Multiline),
             ]),
             new("c++",
@@ -47,21 +48,21 @@ public class LanguageDetector
             [
                 new Regex(@"\b(->|::)\s*\w+\s*\(", RegexOptions.Multiline),
                 new Regex(@"\b(public|private|protected):", RegexOptions.Multiline),
-                new Regex(@"\b(nullptr|NULL|true|false)\b", RegexOptions.Multiline),
+                new Regex(@"\b(nullptr|NULL)\b", RegexOptions.Multiline),
                 new Regex(@"\b(vector|string|map|set|list|array|unique_ptr|shared_ptr)\s*[<(]", RegexOptions.Multiline),
             ]),
             new("javascript",
             [
                 new Regex(@"\b(const|let|var)\s+\w+\s*=?\s*(function|=>|require|import|export)\b", RegexOptions.Multiline),
-                new Regex(@"\b(function\s+\w+\s*\(|=>\s*[{(]|async\s+function)", RegexOptions.Multiline),
+                new Regex(@"\b(function\s+\w+\s*\()", RegexOptions.Multiline),
                 new Regex(@"\b(document|window|console|alert|prompt|fetch|axios)\b", RegexOptions.Multiline),
                 new Regex(@"\b(import\s+.*\s+from|export\s+(default|const|function|class))\b", RegexOptions.Multiline),
                 new Regex(@"\b(module\.exports|exports\.|require\()", RegexOptions.Multiline),
             ],
             [
                 new Regex(@"\b(const|let|var)\s+\w+\s*=", RegexOptions.Multiline),
-                new Regex(@"\b(null|undefined|NaN|true|false)\b", RegexOptions.Multiline),
-                new Regex(@"\b(this\.|prototype\.|\.length|\.push|\.map)\b", RegexOptions.Multiline),
+                new Regex(@"\b(null|undefined|NaN)\b", RegexOptions.Multiline),
+                new Regex(@"\b(this\.|prototype\.|\.length|\.push|\.map|\.filter|\.reduce)\b", RegexOptions.Multiline),
                 new Regex(@"\b(=>|===|!==)\b", RegexOptions.Multiline),
             ]),
             new("python",
@@ -73,10 +74,9 @@ public class LanguageDetector
                 new Regex(@"^\s*(import|from|def|class|if|elif|else|while|for|with|try|except|finally|raise|return|yield|lambda|pass|break|continue)\s", RegexOptions.Multiline),
             ],
             [
-                new Regex(@"\b(True|False|None|self|__init__|__str__|__repr__)\b", RegexOptions.Multiline),
+                new Regex(@"\b(True|False|None)\b", RegexOptions.Multiline),
                 new Regex(@"\b(len|range|zip|map|filter|list|dict|set|tuple|str|int|float|bool|print|input|open|type|isinstance|hasattr)\s*\(", RegexOptions.Multiline),
                 new Regex(@"^\s*@\w+", RegexOptions.Multiline),
-                new Regex(@"\b(with\s+\w+\s+as|except\s+\w+\s+as)\b", RegexOptions.Multiline),
             ]),
             new("java",
             [
@@ -87,24 +87,24 @@ public class LanguageDetector
                 new Regex(@"\b(extends\s+\w+|implements\s+\w+\s*[,<]|throws\s+\w+)\b", RegexOptions.Multiline),
             ],
             [
-                new Regex(@"\b(String\[\]|void\s+\w+\s*\(|new\s+\w+\(\))", RegexOptions.Multiline),
-                new Regex(@"\b(public|private|protected)\s+\w+\s+\w+\s*\([^)]*\)\s*{", RegexOptions.Multiline),
+                new Regex(@"\b(String\[\]|new\s+\w+\(\))", RegexOptions.Multiline),
                 new Regex(@"\b(ArrayList|HashMap|HashSet|List|Map|Set|Optional|Stream|Collectors)\s*[<]", RegexOptions.Multiline),
-                new Regex(@"\b(this\.|super\(|\.length|\.equals|\.toString)\b", RegexOptions.Multiline),
+                new Regex(@"\b(public|private|protected)\s+(class|interface)\s+\w+", RegexOptions.Multiline),
+                new Regex(@"\b(this\.|super\(|\.equals|\.toString)\b", RegexOptions.Multiline),
             ]),
             new("php",
             [
                 new Regex(@"<\?php", RegexOptions.Multiline),
                 new Regex(@"\$\w+\s*=", RegexOptions.Multiline),
                 new Regex(@"\b(echo|print|var_dump|print_r)\s*\(?", RegexOptions.Multiline),
-                new Regex(@"\b(function\s+\w+\s*\(.*\)\s*[{:]|(public|private|protected)\s+function)", RegexOptions.Multiline),
+                new Regex(@"\b(abstract|final|static|public|private|protected)\s+function", RegexOptions.Multiline),
                 new Regex(@"\b(use\s+(Illuminate|App|Database|namespace|trait|interface))\b", RegexOptions.Multiline),
             ],
             [
                 new Regex(@"\$_?(GET|POST|SESSION|COOKIE|SERVER|REQUEST|FILES|ENV)\b", RegexOptions.Multiline),
                 new Regex(@"\b(->|=>)\s*\w+\s*\(", RegexOptions.Multiline),
                 new Regex(@"\b(new\s+\w+|self::|parent::|static::)\b", RegexOptions.Multiline),
-                new Regex(@"\b(abstract|final|static|public|private|protected)\s+(class|function|trait|interface)", RegexOptions.Multiline),
+                new Regex(@"\$\w+", RegexOptions.Multiline),
             ]),
             new("html",
             [
@@ -116,8 +116,7 @@ public class LanguageDetector
             [
                 new Regex(@"&(amp|lt|gt|quot|nbsp|copy|reg);", RegexOptions.Multiline),
                 new Regex(@"<!--.*-->", RegexOptions.Multiline),
-                new Regex(@"<br\s*/?>", RegexOptions.Multiline),
-                new Regex(@"\b(content|charset|viewport|utf-8|utf8)\b", RegexOptions.Multiline),
+                new Regex(@"\b(content|charset|viewport)\b", RegexOptions.Multiline),
             ]),
             new("css",
             [
@@ -129,8 +128,7 @@ public class LanguageDetector
             [
                 new Regex(@"::(before|after|placeholder|selection)", RegexOptions.Multiline),
                 new Regex(@":[a-z-]+\((.*?)\)", RegexOptions.Multiline),
-                new Regex(@"\b(rgb|rgba|hsl|hsla|hex|url)\s*\(", RegexOptions.Multiline),
-                new Regex(@"\b(grid|flex|block|inline|absolute|relative|fixed|sticky|none|hidden)\b", RegexOptions.Multiline),
+                new Regex(@"\b(grid|flex|block|inline|absolute|relative|fixed|sticky)\b", RegexOptions.Multiline),
             ]),
             new("markdown",
             [
@@ -143,7 +141,6 @@ public class LanguageDetector
             [
                 new Regex(@"^>\s", RegexOptions.Multiline),
                 new Regex(@"```\w*", RegexOptions.Multiline),
-                new Regex(@"^---+$", RegexOptions.Multiline),
                 new Regex(@"~~.*?~~", RegexOptions.Multiline),
             ]),
         ];
@@ -160,15 +157,9 @@ public class LanguageDetector
         {
             int total = 0;
             foreach (var p in lang.Primary)
-            {
-                if (p.IsMatch(text))
-                    total += 5;
-            }
+                if (p.IsMatch(text)) total += 5;
             foreach (var p in lang.Secondary)
-            {
-                if (p.IsMatch(text))
-                    total += 2;
-            }
+                if (p.IsMatch(text)) total += 2;
             if (total > 0)
                 scores[lang.Name] = total;
         }
@@ -176,12 +167,14 @@ public class LanguageDetector
         if (scores.Count == 0)
             return "none";
 
-        var best = scores.MaxBy(kv => kv.Value);
-        var second = scores.OrderByDescending(kv => kv.Value).Skip(1).FirstOrDefault();
+        var ordered = scores.OrderByDescending(kv => kv.Value).ToList();
+        var best = ordered[0];
+        var second = ordered.Count > 1 ? ordered[1] : default;
 
         int bestScore = best.Value;
+        int gap = second.Value == 0 ? bestScore : bestScore - second.Value;
 
-        if (bestScore >= 6 && (second.Value == 0 || bestScore >= second.Value * 2))
+        if (bestScore >= 5 && gap >= 3)
             return best.Key;
 
         return "none";

@@ -2,14 +2,14 @@ using ScintillaNET;
 
 namespace Notepadv.UI;
 
-public partial class GoToUI : UserControl
+public partial class GoToUI : Form
 {
-    public delegate void CloseEvent();
-    public event CloseEvent? Close;
-
     private Scintilla _editor;
+    private int? _lineNumber;
     private int _borderSize = 2;
     private Color _borderColor = Color.FromArgb(139, 70, 166);
+
+    public int? LineNumber => _lineNumber;
 
     public GoToUI(Scintilla editor)
     {
@@ -25,33 +25,33 @@ public partial class GoToUI : UserControl
 
     private void OnOkPressed(object? sender, EventArgs e)
     {
-        if (int.TryParse(lineInput.Text.Trim(), out int lineNum))
-        {
-            int totalLines = _editor.Lines.Count;
+        string text = lineInput.Text.Trim();
 
-            if (lineNum >= 1 && lineNum <= totalLines)
-            {
-                int lineIndex = lineNum - 1;
-                int pos = _editor.Lines[lineIndex].Position;
-                _editor.SetSel(pos, pos);
-                _editor.ScrollRange(pos, pos);
-                Exit();
-            }
-            else
-            {
-                Exit();
-                MsgBox.Show("Go To Line", "Line doesn't exist.", DialogButtons.OK, DialogIcon.Info);
-            }
-        }
-        else
+        if (text.Length == 0 || !int.TryParse(text, out int lineNum))
         {
             lineInput.Focus();
+            return;
         }
+
+        int totalLines = _editor.Lines.Count;
+
+        if (lineNum < 1 || lineNum > totalLines)
+        {
+            DialogResult = DialogResult.Cancel;
+            Close();
+            MsgBox.Show("Go To Line", "Line doesn't exist.", DialogButtons.OK, DialogIcon.Info);
+            return;
+        }
+
+        _lineNumber = lineNum;
+        DialogResult = DialogResult.OK;
+        Close();
     }
 
     private void OnCancelPressed(object? sender, EventArgs e)
     {
-        Exit();
+        DialogResult = DialogResult.Cancel;
+        Close();
     }
 
     private void OnInputKeyDown(object? sender, KeyEventArgs e)
@@ -63,15 +63,26 @@ public partial class GoToUI : UserControl
         }
         else if (e.KeyCode == Keys.Escape)
         {
-            Exit();
+            OnCancelPressed(sender, e);
             e.SuppressKeyPress = true;
         }
     }
 
-    private void Exit()
+    private void OnInputKeyPress(object? sender, KeyPressEventArgs e)
     {
-        if (Close != null)
+        if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            e.Handled = true;
+    }
+
+    protected override bool ProcessDialogKey(Keys keyData)
+    {
+        if (ModifierKeys == Keys.None && keyData == Keys.Escape)
+        {
+            DialogResult = DialogResult.Cancel;
             Close();
+            return true;
+        }
+        return base.ProcessDialogKey(keyData);
     }
 
     protected override void OnPaint(PaintEventArgs e)

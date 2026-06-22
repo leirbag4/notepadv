@@ -1,5 +1,3 @@
-using Notepadv.UI.Controls;
-
 namespace Notepadv.UI;
 
 partial class GoToUI
@@ -16,8 +14,8 @@ partial class GoToUI
     private void InitializeComponent()
     {
         lineInput = new TextBox();
-        okButton = new ButtonAdv();
-        cancelButton = new ButtonAdv();
+        okButton = new Button();
+        cancelButton = new Button();
         SuspendLayout();
         // 
         // lineInput
@@ -26,47 +24,41 @@ partial class GoToUI
         lineInput.BorderStyle = BorderStyle.FixedSingle;
         lineInput.Font = new Font("Segoe UI", 11f);
         lineInput.ForeColor = Color.Silver;
-        lineInput.Location = new Point(20, 35);
+        lineInput.Location = new Point(30, 25);
+        lineInput.MaxLength = 10;
         lineInput.Name = "lineInput";
         lineInput.Size = new Size(180, 32);
         lineInput.TabIndex = 0;
         lineInput.TextAlign = HorizontalAlignment.Center;
         lineInput.KeyDown += OnInputKeyDown;
+        lineInput.KeyPress += OnInputKeyPress;
         // 
         // okButton
         // 
-        okButton.BorderColor = Color.DarkGray;
-        okButton.BorderSize = 1;
-        okButton.CStyle = ButtonAdv.CustomStyle.SOLID_NO_BORDERS;
-        okButton.FocusColor = Color.FromArgb(0, 122, 204);
-        okButton.FocusEnabled = true;
-        okButton.ForeColor = Color.FromArgb(224, 224, 224);
-        okButton.Location = new Point(125, 75);
+        okButton.BackColor = Color.FromArgb(52, 52, 52);
+        okButton.FlatStyle = FlatStyle.Flat;
+        okButton.FlatAppearance.BorderSize = 0;
+        okButton.ForeColor = Color.Silver;
+        okButton.Location = new Point(140, 70);
         okButton.Name = "okButton";
-        okButton.processEnterKey = true;
-        okButton.SelectedColor = Color.FromArgb(0, 122, 204);
-        okButton.Size = new Size(75, 28);
+        okButton.Size = new Size(70, 28);
         okButton.TabIndex = 2;
         okButton.Text = "OK";
-        okButton.UseVisualStyleBackColor = true;
+        okButton.UseVisualStyleBackColor = false;
         okButton.Click += OnOkPressed;
         // 
         // cancelButton
         // 
-        cancelButton.BorderColor = Color.DarkGray;
-        cancelButton.BorderSize = 1;
-        cancelButton.CStyle = ButtonAdv.CustomStyle.SOLID_NO_BORDERS;
-        cancelButton.FocusColor = Color.FromArgb(0, 122, 204);
-        cancelButton.FocusEnabled = true;
-        cancelButton.ForeColor = Color.FromArgb(224, 224, 224);
-        cancelButton.Location = new Point(20, 75);
+        cancelButton.BackColor = Color.FromArgb(52, 52, 52);
+        cancelButton.FlatStyle = FlatStyle.Flat;
+        cancelButton.FlatAppearance.BorderSize = 0;
+        cancelButton.ForeColor = Color.Silver;
+        cancelButton.Location = new Point(30, 70);
         cancelButton.Name = "cancelButton";
-        cancelButton.processEnterKey = true;
-        cancelButton.SelectedColor = Color.FromArgb(0, 122, 204);
-        cancelButton.Size = new Size(75, 28);
+        cancelButton.Size = new Size(70, 28);
         cancelButton.TabIndex = 1;
         cancelButton.Text = "Cancel";
-        cancelButton.UseVisualStyleBackColor = true;
+        cancelButton.UseVisualStyleBackColor = false;
         cancelButton.Click += OnCancelPressed;
         // 
         // GoToUI
@@ -74,16 +66,22 @@ partial class GoToUI
         AutoScaleDimensions = new SizeF(8F, 20F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.FromArgb(45, 45, 45);
+        ClientSize = new Size(240, 110);
+        ControlBox = false;
         Controls.Add(cancelButton);
         Controls.Add(okButton);
         Controls.Add(lineInput);
+        FormBorderStyle = FormBorderStyle.None;
+        MaximizeBox = false;
+        MinimizeBox = false;
         Name = "GoToUI";
-        Size = new Size(220, 110);
+        ShowInTaskbar = false;
+        StartPosition = FormStartPosition.Manual;
         ResumeLayout(false);
         PerformLayout();
     }
 
     private TextBox lineInput;
-    private ButtonAdv okButton;
-    private ButtonAdv cancelButton;
+    private Button okButton;
+    private Button cancelButton;
 }

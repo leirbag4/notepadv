@@ -92,7 +92,6 @@ public partial class Form1 : Form
     private LanguageDetector _languageDetector = null!;
     private bool _pendingDetection;
     private FindUI? _findUI;
-    private GoToUI? _goToUI;
 
     public Form1()
     {
@@ -408,29 +407,21 @@ public partial class Form1 : Form
 
     private void ShowGoToUI()
     {
-        if (_goToUI != null)
-        {
-            Controls.Remove(_goToUI);
-            _goToUI.Dispose();
-        }
+        using var dialog = new GoToUI(scintilla);
+        dialog.Location = PointToScreen(new Point(
+            scintilla.Left + (scintilla.Width - dialog.Width) / 2,
+            scintilla.Top + (scintilla.Height - dialog.Height) / 2));
 
-        _goToUI = new GoToUI(scintilla);
-        _goToUI.Location = new Point(
-            scintilla.Left + (scintilla.Width - _goToUI.Width) / 2,
-            scintilla.Top + (scintilla.Height - _goToUI.Height) / 2);
-        _goToUI.Close += OnGoToUIClose;
-        Controls.Add(_goToUI);
-        _goToUI.BringToFront();
-    }
+        SimpleOverlay.ShowFX(this);
+        var result = dialog.ShowDialog(this);
+        SimpleOverlay.HideFX();
 
-    private void OnGoToUIClose()
-    {
-        if (_goToUI != null)
+        if (result == DialogResult.OK && dialog.LineNumber.HasValue)
         {
-            Controls.Remove(_goToUI);
-            _goToUI.Dispose();
-            _goToUI = null;
-            scintilla.Focus();
+            int lineIndex = dialog.LineNumber.Value - 1;
+            int pos = scintilla.Lines[lineIndex].Position;
+            scintilla.SetSel(pos, pos);
+            scintilla.ScrollRange(pos, pos);
         }
     }
 

@@ -20,7 +20,7 @@ public class NoneStyle : LangStyleBase
         Editor.StyleClearAll();
 
         Styles[Style.LineNumber].BackColor = Color.FromArgb(37, 37, 38);
-        Styles[Style.LineNumber].ForeColor = Color.FromArgb(153, 153, 153);
+        Styles[Style.LineNumber].ForeColor = Color.FromArgb(0x55, 0x55, 0x55);
 
         Editor.Margins[0].Type = MarginType.Number;
         Editor.Margins[0].Width = 45;

@@ -81,10 +81,44 @@ public partial class Form1 : Form
             _isModified = false;
             encodingLabel.Text = _currentEncoding.EncodingName;
             UpdateTitle();
+            ApplyLanguageByExtension(filePath);
         }
         catch (Exception ex)
         {
             MessageBox.Show($"Could not open file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+    }
+
+    private static readonly Dictionary<string, string> _extLangMap = new(StringComparer.OrdinalIgnoreCase)
+    {
+        [".cs"] = "C#",
+        [".cpp"] = "C++", [".cc"] = "C++", [".cxx"] = "C++", [".h"] = "C++", [".hpp"] = "C++",
+        [".js"] = "JavaScript", [".jsx"] = "JavaScript", [".ts"] = "JavaScript", [".tsx"] = "JavaScript", [".mjs"] = "JavaScript",
+        [".py"] = "Python",
+        [".java"] = "Java",
+        [".php"] = "PHP",
+        [".html"] = "HTML", [".htm"] = "HTML",
+        [".css"] = "CSS",
+        [".md"] = "Markdown", [".markdown"] = "Markdown",
+    };
+
+    private void ApplyLanguageByExtension(string? filePath)
+    {
+        if (filePath == null) return;
+        string? ext = Path.GetExtension(filePath);
+        if (ext != null && _extLangMap.TryGetValue(ext, out var lang))
+        {
+            foreach (ToolStripMenuItem item in languageMenu.DropDownItems)
+            {
+                if (string.Equals(item.Text, lang, StringComparison.OrdinalIgnoreCase) && item.Text is { } name)
+                {
+                    _styleManager.Apply(name);
+                    foreach (ToolStripMenuItem i in languageMenu.DropDownItems)
+                        i.Checked = false;
+                    item.Checked = true;
+                    break;
+                }
+            }
         }
     }
 

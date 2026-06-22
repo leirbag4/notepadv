@@ -16,6 +16,9 @@ partial class Form1
     private ToolStripMenuItem copyMenuItem;
     private ToolStripMenuItem cutMenuItem;
     private ToolStripMenuItem pasteMenuItem;
+    private ToolStripSeparator editSep1;
+    private ToolStripMenuItem findMenuItem;
+    private ToolStripMenuItem goToMenuItem;
     private ToolStripMenuItem viewMenu;
     private ToolStripMenuItem resetZoomMenuItem;
     private ToolStripMenuItem languageMenu;
@@ -59,6 +62,9 @@ partial class Form1
         copyMenuItem = new ToolStripMenuItem();
         cutMenuItem = new ToolStripMenuItem();
         pasteMenuItem = new ToolStripMenuItem();
+        editSep1 = new ToolStripSeparator();
+        findMenuItem = new ToolStripMenuItem();
+        goToMenuItem = new ToolStripMenuItem();
         viewMenu = new ToolStripMenuItem();
         resetZoomMenuItem = new ToolStripMenuItem();
         languageMenu = new ToolStripMenuItem();
@@ -146,7 +152,7 @@ partial class Form1
         // editMenu
         editMenu.Text = "Edit";
         editMenu.DropDownItems.AddRange(new ToolStripItem[] {
-            copyMenuItem, cutMenuItem, pasteMenuItem
+            copyMenuItem, cutMenuItem, pasteMenuItem, editSep1, findMenuItem, goToMenuItem
         });
         editMenu.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
 
@@ -170,6 +176,24 @@ partial class Form1
         pasteMenuItem.Click += PasteMenuItem_Click;
         pasteMenuItem.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
         pasteMenuItem.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        // editSep1
+        editSep1.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        editSep1.ForeColor = System.Drawing.Color.FromArgb(45, 45, 45);
+
+        // findMenuItem
+        findMenuItem.Text = "Find";
+        findMenuItem.ShortcutKeys = Keys.Control | Keys.F;
+        findMenuItem.Click += FindMenuItem_Click;
+        findMenuItem.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        findMenuItem.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        // goToMenuItem
+        goToMenuItem.Text = "Go To";
+        goToMenuItem.ShortcutKeys = Keys.Control | Keys.G;
+        goToMenuItem.Click += GoToMenuItem_Click;
+        goToMenuItem.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        goToMenuItem.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
 
         // viewMenu
         viewMenu.Text = "View";

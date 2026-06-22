@@ -289,6 +289,16 @@ public partial class Form1 : Form
         scintilla.Paste();
     }
 
+    private void FindMenuItem_Click(object? sender, EventArgs e)
+    {
+        ShowFindUI(false);
+    }
+
+    private void GoToMenuItem_Click(object? sender, EventArgs e)
+    {
+        ShowGoToUI();
+    }
+
     private void LangMenuItem_Click(object? sender, EventArgs e)
     {
         if (sender is ToolStripMenuItem item && item.Text is { } lang)

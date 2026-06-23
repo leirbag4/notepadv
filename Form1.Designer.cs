@@ -35,7 +35,7 @@ partial class Form1
     private StatusStrip statusStrip;
     private ToolStripStatusLabel encodingLabel;
     private ToolStripStatusLabel lineColLabel;
-    private ScintillaNET.Scintilla scintilla;
+    private Notepadv.VampEditor.VampirioEditor scintilla;
 
     protected override void Dispose(bool disposing)
     {
@@ -81,7 +81,7 @@ partial class Form1
         statusStrip = new StatusStrip();
         encodingLabel = new ToolStripStatusLabel();
         lineColLabel = new ToolStripStatusLabel();
-        scintilla = new ScintillaNET.Scintilla();
+        scintilla = new Notepadv.VampEditor.VampirioEditor();
 
         menuStrip.SuspendLayout();
         statusStrip.SuspendLayout();

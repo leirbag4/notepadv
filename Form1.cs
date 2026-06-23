@@ -3,7 +3,10 @@ using ScintillaNET;
 using Notepadv.LangStyles;
 using Notepadv.SaveData;
 using Notepadv.UI;
+using Notepadv.UI.Controls;
+using Notepadv.UI.Controls.ScrollBarAdvance;
 using Notepadv.UI.Style;
+using Notepadv.VampEditor;
 
 namespace Notepadv;
 
@@ -93,6 +96,10 @@ public partial class Form1 : Form
     private bool _pendingDetection;
     private FindUI? _findUI;
 
+    private ScrollBarAdv vertScrollBar;
+    private ScrollBarAdv horScrollBar;
+    private Control scrollBarCorner;
+
     public Form1(string? filePath = null)
     {
         Config.Load();
@@ -107,15 +114,114 @@ public partial class Form1 : Form
         Height = Config.Height;
         scintilla.Zoom = Config.ZoomSize;
 
-        scintilla.ClearCmdKey(Keys.Control | Keys.F);
-        scintilla.ClearCmdKey(Keys.Control | Keys.H);
-        scintilla.ClearCmdKey(Keys.Control | Keys.G);
+        scintilla.VerticalScrollChanged += OnVerticalScrollChanged;
+        scintilla.HorizontalScrollChanged += OnHorizontalScrollChanged;
+
+        CreateCustomScrollBars();
 
         if (filePath != null)
             OpenFile(filePath);
     }
 
     private string FileTitle => _currentFilePath != null ? Path.GetFileName(_currentFilePath) : "Untitled";
+
+    private void CreateCustomScrollBars()
+    {
+        vertScrollBar =                     new ScrollBarAdv();
+        vertScrollBar.ThumbPaddingX =       5;
+        vertScrollBar.ThumbPaddingY =       4;
+        vertScrollBar.MinThumbSize =        20;
+        vertScrollBar.ThumbNormalColor =    Color.FromArgb(65, 65, 65);
+        vertScrollBar.ThumbOverColor =      Color.FromArgb(75, 75, 75);
+        vertScrollBar.ButtonSize =          SystemInformation.VerticalScrollBarWidth;
+        vertScrollBar.Width =               SystemInformation.VerticalScrollBarWidth;
+        vertScrollBar.Anchor =              AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+        vertScrollBar.Scroll +=             OnVertScroll;
+
+        horScrollBar =                      new ScrollBarAdv();
+        horScrollBar.Orientation =          ScrollBarOrientation.Horizontal;
+        horScrollBar.AllowMouseScrolling =  false;
+        horScrollBar.ThumbPaddingX =        4;
+        horScrollBar.ThumbPaddingY =        5;
+        horScrollBar.MinThumbSize =         20;
+        horScrollBar.ThumbNormalColor =     Color.FromArgb(65, 65, 65);
+        horScrollBar.ThumbOverColor =       Color.FromArgb(75, 75, 75);
+        horScrollBar.ButtonSize =           SystemInformation.HorizontalScrollBarHeight;
+        horScrollBar.Height =               SystemInformation.HorizontalScrollBarHeight;
+        horScrollBar.Anchor =               AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
+        horScrollBar.Scroll +=              OnHorScroll;
+
+        scrollBarCorner =                   new Control();
+        scrollBarCorner.BackColor =         Color.FromArgb(60, 60, 60);
+        scrollBarCorner.Size =              new Size(SystemInformation.VerticalScrollBarWidth, SystemInformation.HorizontalScrollBarHeight);
+        scrollBarCorner.Location =          new Point(scintilla.Right - scrollBarCorner.Width, scintilla.Bottom - scrollBarCorner.Height);
+        scrollBarCorner.Anchor =            AnchorStyles.Bottom | AnchorStyles.Right;
+
+        scintilla.SizeChanged += (s, e) => RefreshScrollBarsVisibility();
+
+        Controls.Add(vertScrollBar);
+        Controls.Add(horScrollBar);
+        Controls.Add(scrollBarCorner);
+        vertScrollBar.BringToFront();
+        horScrollBar.BringToFront();
+        scrollBarCorner.BringToFront();
+
+        RefreshScrollBarsVisibility();
+    }
+
+    private void RefreshScrollBarsVisibility()
+    {
+        bool vscrollVisible =   vertScrollBar.Maximum >= vertScrollBar.LargeChange;
+        bool hscrollVisible =   horScrollBar.Maximum >= horScrollBar.LargeChange;
+
+        if (hscrollVisible)
+            vertScrollBar.Height = scintilla.Height - horScrollBar.Height;
+        else
+            vertScrollBar.Height = scintilla.Height;
+
+        if (vscrollVisible)
+            horScrollBar.Width = scintilla.Width - vertScrollBar.Width;
+        else
+            horScrollBar.Width = scintilla.Width;
+
+        vertScrollBar.Location =    new Point(scintilla.Right - vertScrollBar.Width, scintilla.Top);
+        horScrollBar.Location =     new Point(scintilla.Left, scintilla.Bottom - horScrollBar.Height);
+        scrollBarCorner.Location =  new Point(scintilla.Right - scrollBarCorner.Width, scintilla.Bottom - scrollBarCorner.Height);
+
+        vertScrollBar.Visible =     vscrollVisible;
+        horScrollBar.Visible =      hscrollVisible;
+        scrollBarCorner.Visible =   vscrollVisible && hscrollVisible;
+    }
+
+    private void OnVertScroll(int newValue, int oldValue)
+    {
+        scintilla.FirstVisibleLine = vertScrollBar.Value;
+    }
+
+    private void OnHorScroll(int newValue, int oldValue)
+    {
+        scintilla.XOffset = horScrollBar.Value;
+    }
+
+    private void OnVerticalScrollChanged(ScrollInfo scrollInfo, int position)
+    {
+        ScrollBarAdv scroll = vertScrollBar;
+        if (scroll.Minimum != scrollInfo.min) scroll.Minimum = scrollInfo.min;
+        if (scroll.Maximum != scrollInfo.max) scroll.Maximum = scrollInfo.max;
+        if (scroll.LargeChange != scrollInfo.nPage) scroll.LargeChange = scrollInfo.nPage;
+        if (scroll.Value != position) scroll.Value = position;
+        RefreshScrollBarsVisibility();
+    }
+
+    private void OnHorizontalScrollChanged(ScrollInfo scrollInfo, int position)
+    {
+        ScrollBarAdv scroll = horScrollBar;
+        if (scroll.Minimum != scrollInfo.min) scroll.Minimum = scrollInfo.min;
+        if (scroll.Maximum != scrollInfo.max) scroll.Maximum = scrollInfo.max;
+        if (scroll.LargeChange != scrollInfo.nPage) scroll.LargeChange = scrollInfo.nPage;
+        if (scroll.Value != position) scroll.Value = position;
+        RefreshScrollBarsVisibility();
+    }
 
     private void UpdateTitle()
     {
@@ -405,6 +511,9 @@ public partial class Form1 : Form
         _findUI.Close += OnFindUIClose;
         Controls.Add(_findUI);
         _findUI.BringToFront();
+        vertScrollBar.BringToFront();
+        horScrollBar.BringToFront();
+        scrollBarCorner.BringToFront();
     }
 
     private void OnFindUIClose()

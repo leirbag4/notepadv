@@ -238,7 +238,7 @@ public partial class Form1 : Form
         if (!PromptSaveIfModified())
             return;
 
-        scintilla.Text = "";
+        scintilla.SetText("");
         _currentFilePath = null;
         scintilla.HasFilePath = false;
         _currentEncoding = Encoding.UTF8;
@@ -265,7 +265,7 @@ public partial class Form1 : Form
         {
             var bytes = File.ReadAllBytes(filePath);
             _currentEncoding = DetectEncoding(bytes);
-            scintilla.Text = _currentEncoding.GetString(bytes);
+            scintilla.SetText(_currentEncoding.GetString(bytes));
             _currentFilePath = filePath;
             scintilla.HasFilePath = true;
             _isModified = false;

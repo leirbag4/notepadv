@@ -228,6 +228,31 @@ public partial class Form1 : Form
             System.Diagnostics.Process.Start("explorer.exe", "/select,\"" + _currentFilePath + "\"");
     }
 
+    private void NewMenuItem_Click(object? sender, EventArgs e)
+    {
+        NewFile();
+    }
+
+    private void NewFile()
+    {
+        if (!PromptSaveIfModified())
+            return;
+
+        scintilla.Text = "";
+        _currentFilePath = null;
+        scintilla.HasFilePath = false;
+        _currentEncoding = Encoding.UTF8;
+        _isModified = false;
+        encodingLabel.Text = _currentEncoding.EncodingName;
+
+        _styleManager.Apply("none");
+        foreach (ToolStripMenuItem item in languageMenu.DropDownItems)
+            item.Checked = false;
+        langNone.Checked = true;
+
+        UpdateTitle();
+    }
+
     private void UpdateTitle()
     {
         var mark = _isModified ? " *" : "";

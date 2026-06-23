@@ -5,6 +5,7 @@ partial class Form1
     private System.ComponentModel.IContainer components = null;
     private MenuStrip menuStrip;
     private ToolStripMenuItem fileMenu;
+    private ToolStripMenuItem newMenuItem;
     private ToolStripMenuItem openMenuItem;
     private ToolStripMenuItem saveMenuItem;
     private ToolStripMenuItem saveAsMenuItem;
@@ -51,6 +52,7 @@ partial class Form1
         components = new System.ComponentModel.Container();
         menuStrip = new MenuStrip();
         fileMenu = new ToolStripMenuItem();
+        newMenuItem = new ToolStripMenuItem();
         openMenuItem = new ToolStripMenuItem();
         saveMenuItem = new ToolStripMenuItem();
         saveAsMenuItem = new ToolStripMenuItem();
@@ -102,9 +104,16 @@ partial class Form1
         // fileMenu
         fileMenu.Text = "File";
         fileMenu.DropDownItems.AddRange(new ToolStripItem[] {
-            openMenuItem, saveMenuItem, saveAsMenuItem, fileSep1, toolStripMenuItem1
+            newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, fileSep1, toolStripMenuItem1
         });
         fileMenu.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        // newMenuItem
+        newMenuItem.Text = "New";
+        newMenuItem.ShortcutKeys = Keys.Control | Keys.N;
+        newMenuItem.Click += NewMenuItem_Click;
+        newMenuItem.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        newMenuItem.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
 
         // openMenuItem
         openMenuItem.Text = "Open";

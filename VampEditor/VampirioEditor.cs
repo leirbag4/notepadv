@@ -67,6 +67,8 @@ namespace Notepadv.VampEditor
         public bool IsHorizontalScrollVisible { get { return (GetWindowLong(Handle, GWL_STYLE) & WS_HSCROLL) != 0; } }
         public bool HasFilePath { get; set; }
 
+        private const int SCI_BEGINUNDOACTION = 2078;
+        private const int SCI_ENDUNDOACTION = 2079;
         private ContextMenu<ItemType> menu;
         private bool _highlighted = false;
 
@@ -150,39 +152,22 @@ namespace Notepadv.VampEditor
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            if (e.Control && (e.KeyCode == Keys.X))
+            // Handle Enter with auto-indent manually to avoid OnInsertCheck corruption
+            if (!e.Control && !e.Alt && e.KeyCode == Keys.Return)
             {
-                if (SelectedText == "")
-                {
-                    string str = Lines[CurrentLine].Text.Trim();
-                    if (str == "")
-                        str = "\n";
+                e.SuppressKeyPress = true;
 
-                    Clipboard.SetText(str);
+                int curLine = LineFromPosition(CurrentPosition);
+                string curLineText = Lines[curLine].Text;
+                var match = Regex.Match(curLineText, @"^[ \t]*");
+                string newLineIndent = match.Value;
+                if (Regex.IsMatch(curLineText, @"{\s*$"))
+                    newLineIndent += '\t';
 
-                    int start =     Lines[CurrentLine].Position;
-                    int length =    Lines[CurrentLine].Length;
-                    DeleteRange(start, length);
-                }
-                else
-                    this.Cut();
-            }
-            else if (e.Control && (e.KeyCode == Keys.C))
-            {
-                if (SelectedText == "")
-                {
-                    string str = Lines[CurrentLine].Text.Trim();
-                    if (str == "")
-                        str = "\n";
-
-                    Clipboard.SetText(str);
-                }
-                else
-                    this.Copy();
-            }
-            else if (e.Control && (e.KeyCode == Keys.V))
-            {
-                this.Paste();
+                DirectMessage(SCI_BEGINUNDOACTION, IntPtr.Zero, IntPtr.Zero);
+                ReplaceSelection("\n" + newLineIndent);
+                DirectMessage(SCI_ENDUNDOACTION, IntPtr.Zero, IntPtr.Zero);
+                return;
             }
 
             base.OnKeyDown(e);
@@ -269,18 +254,7 @@ namespace Notepadv.VampEditor
 
         protected override void OnInsertCheck(InsertCheckEventArgs e)
         {
-            if (e.Text.EndsWith("\n"))
-            {
-                var curLine = LineFromPosition(e.Position);
-                var curLineText = Lines[curLine].Text;
-
-                var indent = Regex.Match(curLineText, @"^[ \t]*");
-                e.Text += indent.Value;
-
-                if (Regex.IsMatch(curLineText, @"{\s*$"))
-                    e.Text += '\t';
-            }
-
+            // Auto-indent handled in OnKeyDown to avoid Scintilla undo grouping issues
             base.OnInsertCheck(e);
         }
 

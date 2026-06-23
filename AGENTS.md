@@ -103,10 +103,20 @@
 ## Session 11 — New File, Undo/Redo, File > New: Ctrl+N
 - File > New (Ctrl+N) — prompts save if modified, clears text, resets file path/encoding/language to "None"
 - Edit > Undo (Ctrl+Z) and Edit > Redo (Ctrl+Shift+Z) with horizontal separator
-- In Progress: Undo grouping by word boundaries — Scintilla's default undo coalesces all typing into one action due to OnInsertCheck modifying Enter text. Plan: toggle `SCI_SETUNDOCOLLECTION` after space/tab/enter to create clean undo action boundaries (Sublime Text / VS Code behavior).
 
-## Next Steps (Session 11+)
-1. Implement word-boundary undo grouping in VampirioEditor:
-   - Override `OnKeyDown` to toggle undo collection after break keys (space, tab, enter)
-   - Consecutive Enters grouped as one undo action
-   - Arrow keys, mouse click, paste, backspace/delete as additional break points
+## Session 12 — Word-Boundary Undo Grouping
+- Implemented proper undo grouping in `VampirioEditor.cs`:
+  - Added `BreakUndoGroup()` public method using `DirectMessage(SCI_SETUNDOCOLLECTION, 0/1)` to toggle undo collection, creating clean action boundaries
+  - **Enter**: break BEFORE key — preceding word is its own group, Enter+auto-indent groups with following text; consecutive Enters stay in the same group (`_lastWasEnter` flag)
+  - **Space/Tab**: break AFTER key — stays with preceding word group
+  - **Backspace/Delete/Navigation** (arrows, PageUp/Down, Home/End): break BEFORE key
+  - **Mouse click** (`OnMouseDown`): break BEFORE click
+- Removed dead Ctrl+X/C/V handling from `OnKeyDown` (menu shortcuts intercept these before OnKeyDown fires)
+- Updated `Form1.cs` menu handlers:
+  - `CopyMenuItem_Click`: whole-line copy when no selection (same behavior as before)
+  - `CutMenuItem_Click`: whole-line cut when no selection + `BreakUndoGroup()` around cut
+  - `PasteMenuItem_Click`: `BreakUndoGroup()` before and after paste
+- Result: each word is a separate undo step, Enter groups with following text, consecutive Enters stay together, navigation/click seals the current group
+
+## Next Steps (Session 12+)
+- (none planned)

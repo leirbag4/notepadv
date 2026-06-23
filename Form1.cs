@@ -426,14 +426,36 @@ public partial class Form1 : Form
 
     private void CopyMenuItem_Click(object? sender, EventArgs e)
     {
-        if (scintilla.SelectionEnd > scintilla.SelectionStart)
+        if (scintilla.SelectedText.Length > 0)
+        {
             scintilla.Copy();
+        }
+        else
+        {
+            string str = scintilla.Lines[scintilla.CurrentLine].Text.Trim();
+            if (str == "")
+                str = "\n";
+            Clipboard.SetText(str);
+        }
     }
 
     private void CutMenuItem_Click(object? sender, EventArgs e)
     {
-        if (scintilla.SelectionEnd > scintilla.SelectionStart)
+        if (scintilla.SelectedText.Length > 0)
+        {
             scintilla.Cut();
+        }
+        else
+        {
+            string str = scintilla.Lines[scintilla.CurrentLine].Text.Trim();
+            if (str == "")
+                str = "\n";
+            Clipboard.SetText(str);
+
+            int start = scintilla.Lines[scintilla.CurrentLine].Position;
+            int length = scintilla.Lines[scintilla.CurrentLine].Length;
+            scintilla.DeleteRange(start, length);
+        }
     }
 
     private void PasteMenuItem_Click(object? sender, EventArgs e)

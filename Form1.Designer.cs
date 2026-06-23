@@ -14,6 +14,9 @@ partial class Form1
     private ToolStripMenuItem helpMenu;
     private ToolStripMenuItem aboutMenuItem;
     private ToolStripMenuItem editMenu;
+    private ToolStripMenuItem undoMenuItem;
+    private ToolStripMenuItem redoMenuItem;
+    private ToolStripSeparator editSep0;
     private ToolStripMenuItem copyMenuItem;
     private ToolStripMenuItem cutMenuItem;
     private ToolStripMenuItem pasteMenuItem;
@@ -61,6 +64,9 @@ partial class Form1
         helpMenu = new ToolStripMenuItem();
         aboutMenuItem = new ToolStripMenuItem();
         editMenu = new ToolStripMenuItem();
+        undoMenuItem = new ToolStripMenuItem();
+        redoMenuItem = new ToolStripMenuItem();
+        editSep0 = new ToolStripSeparator();
         copyMenuItem = new ToolStripMenuItem();
         cutMenuItem = new ToolStripMenuItem();
         pasteMenuItem = new ToolStripMenuItem();
@@ -161,9 +167,27 @@ partial class Form1
         // editMenu
         editMenu.Text = "Edit";
         editMenu.DropDownItems.AddRange(new ToolStripItem[] {
-            copyMenuItem, cutMenuItem, pasteMenuItem, editSep1, findMenuItem, goToMenuItem
+            undoMenuItem, redoMenuItem, editSep0, copyMenuItem, cutMenuItem, pasteMenuItem, editSep1, findMenuItem, goToMenuItem
         });
         editMenu.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        // undoMenuItem
+        undoMenuItem.Text = "Undo";
+        undoMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
+        undoMenuItem.Click += UndoMenuItem_Click;
+        undoMenuItem.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        undoMenuItem.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        // redoMenuItem
+        redoMenuItem.Text = "Redo";
+        redoMenuItem.ShortcutKeys = Keys.Control | Keys.Shift | Keys.Z;
+        redoMenuItem.Click += RedoMenuItem_Click;
+        redoMenuItem.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        redoMenuItem.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        // editSep0
+        editSep0.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        editSep0.ForeColor = System.Drawing.Color.FromArgb(45, 45, 45);
 
         // copyMenuItem
         copyMenuItem.Text = "Copy";

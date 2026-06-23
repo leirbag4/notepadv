@@ -412,6 +412,18 @@ public partial class Form1 : Form
         scintilla.Zoom = 0;
     }
 
+    private void UndoMenuItem_Click(object? sender, EventArgs e)
+    {
+        if (scintilla.CanUndo)
+            scintilla.Undo();
+    }
+
+    private void RedoMenuItem_Click(object? sender, EventArgs e)
+    {
+        if (scintilla.CanRedo)
+            scintilla.Redo();
+    }
+
     private void CopyMenuItem_Click(object? sender, EventArgs e)
     {
         if (scintilla.SelectionEnd > scintilla.SelectionStart)

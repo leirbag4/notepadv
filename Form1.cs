@@ -242,6 +242,7 @@ public partial class Form1 : Form
             _currentEncoding = DetectEncoding(bytes);
             scintilla.Text = _currentEncoding.GetString(bytes);
             _currentFilePath = filePath;
+            scintilla.HasFilePath = true;
             _isModified = false;
             encodingLabel.Text = _currentEncoding.EncodingName;
             UpdateTitle();
@@ -314,6 +315,7 @@ public partial class Form1 : Form
             return false;
 
         _currentFilePath = dialog.FileName;
+        scintilla.HasFilePath = true;
         return SaveFile();
     }
 

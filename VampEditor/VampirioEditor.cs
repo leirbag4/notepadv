@@ -65,6 +65,7 @@ namespace Notepadv.VampEditor
         public int CurrentColumn { get { return GetColumn(CurrentPosition); } }
         public bool IsVerticalScrollVisible { get { return (GetWindowLong(Handle, GWL_STYLE) & WS_VSCROLL) != 0; } }
         public bool IsHorizontalScrollVisible { get { return (GetWindowLong(Handle, GWL_STYLE) & WS_HSCROLL) != 0; } }
+        public bool HasFilePath { get; set; }
 
         private ContextMenu<ItemType> menu;
         private bool _highlighted = false;
@@ -105,10 +106,11 @@ namespace Notepadv.VampEditor
         private void OnContextOpening(System.ComponentModel.CancelEventArgs e)
         {
             bool anyTextSelected = this.SelectedText.Length > 0;
-            menu.SetEnable(ItemType.Cut,        anyTextSelected);
-            menu.SetEnable(ItemType.Copy,       anyTextSelected);
-            menu.SetEnable(ItemType.Delete,     anyTextSelected);
-            menu.SetEnable(ItemType.SelectAll,  (this.TextLength > 0) && (this.TextLength != this.SelectedText.Length));
+            menu.SetEnable(ItemType.Cut,            anyTextSelected);
+            menu.SetEnable(ItemType.Copy,           anyTextSelected);
+            menu.SetEnable(ItemType.Delete,         anyTextSelected);
+            menu.SetEnable(ItemType.SelectAll,      (this.TextLength > 0) && (this.TextLength != this.SelectedText.Length));
+            menu.SetEnable(ItemType.OpenFileLocation, HasFilePath);
         }
 
         private void OnContextItemPressed(ItemType selection)

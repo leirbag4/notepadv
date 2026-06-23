@@ -769,6 +769,8 @@ namespace Notepadv.UI.Controls
         {
             Graphics g = e.Graphics;
 
+            g.Clear(trackColors.NormalColor);
+
             foreach (var elem in elements)
             {
                 if (elem != thumb)

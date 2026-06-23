@@ -104,19 +104,29 @@
 - File > New (Ctrl+N) — prompts save if modified, clears text, resets file path/encoding/language to "None"
 - Edit > Undo (Ctrl+Z) and Edit > Redo (Ctrl+Shift+Z) with horizontal separator
 
-## Session 12 — Word-Boundary Undo Grouping
-- Implemented proper undo grouping in `VampirioEditor.cs`:
-  - Added `BreakUndoGroup()` public method using `DirectMessage(SCI_SETUNDOCOLLECTION, 0/1)` to toggle undo collection, creating clean action boundaries
-  - **Enter**: break BEFORE key — preceding word is its own group, Enter+auto-indent groups with following text; consecutive Enters stay in the same group (`_lastWasEnter` flag)
-  - **Space/Tab**: break AFTER key — stays with preceding word group
-  - **Backspace/Delete/Navigation** (arrows, PageUp/Down, Home/End): break BEFORE key
-  - **Mouse click** (`OnMouseDown`): break BEFORE click
-- Removed dead Ctrl+X/C/V handling from `OnKeyDown` (menu shortcuts intercept these before OnKeyDown fires)
-- Updated `Form1.cs` menu handlers:
-  - `CopyMenuItem_Click`: whole-line copy when no selection (same behavior as before)
-  - `CutMenuItem_Click`: whole-line cut when no selection + `BreakUndoGroup()` around cut
-  - `PasteMenuItem_Click`: `BreakUndoGroup()` before and after paste
-- Result: each word is a separate undo step, Enter groups with following text, consecutive Enters stay together, navigation/click seals the current group
+## Session 12 — Word-Boundary Undo Grouping (rewritten)
+- Root cause: `OnInsertCheck` modifying Enter text caused Scintilla to wrap everything in one UndoGroup internally → all typing became one undo action
+- Moved auto-indent from `OnInsertCheck` to `OnKeyDown` (handles Enter manually via `ReplaceSelection`)
+- `OnInsertCheck` now just calls base (no text modification)
+- Enter+indent wrapped in `SCI_BEGINUNDOACTION`/`SCI_ENDUNDOACTION` (2078/2079) so they undo as one step
+- `e.SuppressKeyPress = true` prevents duplicate newline from WM_CHAR
+- All `SCI_SETUNDOCOLLECTION` toggling removed (was causing data loss)
 
-## Next Steps (Session 12+)
+## Session 13 — Batch Language Support
+- Created `LangStyles/BatStyle.cs` — Batch file syntax highlighting:
+  - Lexer "batch" with `Style.Batch.Default/Comment/Word/Label/Hide/Command/Identifier/Operator`
+  - Keywords: control flow (`if else for goto call set echo` etc.) + commands (`dir copy move del` etc.)
+  - Dark theme colors matching the VampirioCode palette
+- Registered in `StyleManager.cs` before Markdown
+- Added `.bat` / `.cmd` extension mapping in `Form1._extLangMap`
+- Added auto-detection patterns in `LanguageDetector.cs` (`@echo off/on`, `:label`, `echo set if for goto`, `rem`)
+- Added `langBatch` menu item in `Form1.Designer.cs` (between CSS and Markdown)
+- Fixed crash: `langBatch` `new` was after `AddRange` (null ref). Moved to initialization section with other menu items.
+
+## Session 14 — Undo Buffer Reset on Open/New
+- `OpenFile()` and `NewFile()` now call `scintilla.SetText()` instead of `scintilla.Text = ...`
+- `SetText()` (already in VampirioEditor) calls `EmptyUndoBuffer()` after setting text
+- Prevents Ctrl+Z from undoing back to previous file content
+
+## Next Steps (Session 14+)
 - (none planned)

@@ -130,6 +130,19 @@ public class LanguageDetector
                 new Regex(@":[a-z-]+\((.*?)\)", RegexOptions.Multiline),
                 new Regex(@"\b(grid|flex|block|inline|absolute|relative|fixed|sticky)\b", RegexOptions.Multiline),
             ]),
+            new("batch",
+            [
+                new Regex(@"^@echo\s+(off|on)", RegexOptions.Multiline),
+                new Regex(@"\b(echo|set|if|for|goto|call|exit|rem|pause|cls|endlocal|setlocal|shift|pushd|popd)\b", RegexOptions.Multiline),
+                new Regex(@"^:\w+", RegexOptions.Multiline),
+                new Regex(@"\b(errorlevel|exist|defined|not\s+exist|cmdextversion)\b", RegexOptions.Multiline),
+            ],
+            [
+                new Regex(@"\b(dir|copy|move|del|ren|cd|md|rd|type|find|more|sort|attrib|xcopy|robocopy|icacls)\b", RegexOptions.Multiline),
+                new Regex(@">\s*\w+|<\s*\w+|\|\s*\w+", RegexOptions.Multiline),
+                new Regex(@"\b(%%|%~|\*\.\w+)", RegexOptions.Multiline),
+                new Regex(@"^\s*rem\s+", RegexOptions.Multiline | RegexOptions.IgnoreCase),
+            ]),
             new("markdown",
             [
                 new Regex(@"^#{1,6}\s+\w", RegexOptions.Multiline),

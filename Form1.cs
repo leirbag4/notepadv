@@ -290,6 +290,7 @@ public partial class Form1 : Form
         [".html"] = "HTML", [".htm"] = "HTML",
         [".css"] = "CSS",
         [".md"] = "Markdown", [".markdown"] = "Markdown",
+        [".bat"] = "Batch", [".cmd"] = "Batch",
     };
 
     private void ApplyLanguageByExtension(string? filePath)

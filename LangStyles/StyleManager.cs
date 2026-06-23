@@ -22,6 +22,7 @@ public class StyleManager
         Register(new PhpStyle());
         Register(new HtmlStyle());
         Register(new CssStyle());
+        Register(new BatStyle());
         Register(new MarkdownStyle());
     }
 

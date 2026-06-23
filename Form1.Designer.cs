@@ -35,6 +35,7 @@ partial class Form1
     private ToolStripMenuItem langPhp;
     private ToolStripMenuItem langHtml;
     private ToolStripMenuItem langCss;
+    private ToolStripMenuItem langBatch;
     private ToolStripMenuItem langMarkdown;
     private StatusStrip statusStrip;
     private ToolStripStatusLabel encodingLabel;
@@ -85,6 +86,7 @@ partial class Form1
         langPhp = new ToolStripMenuItem();
         langHtml = new ToolStripMenuItem();
         langCss = new ToolStripMenuItem();
+        langBatch = new ToolStripMenuItem();
         langMarkdown = new ToolStripMenuItem();
         statusStrip = new StatusStrip();
         encodingLabel = new ToolStripStatusLabel();
@@ -245,7 +247,7 @@ partial class Form1
         languageMenu.Text = "Language";
         languageMenu.DropDownItems.AddRange(new ToolStripItem[] {
             langNone, langCSharp, langCpp, langJavaScript, langPython,
-            langJava, langPhp, langHtml, langCss, langMarkdown
+            langJava, langPhp, langHtml, langCss, langBatch, langMarkdown
         });
         languageMenu.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
 
@@ -293,6 +295,11 @@ partial class Form1
         langCss.Click += LangMenuItem_Click;
         langCss.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
         langCss.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
+
+        langBatch.Text = "Batch";
+        langBatch.Click += LangMenuItem_Click;
+        langBatch.BackColor = System.Drawing.Color.FromArgb(45, 45, 45);
+        langBatch.ForeColor = System.Drawing.Color.FromArgb(212, 212, 212);
 
         langMarkdown.Text = "Markdown";
         langMarkdown.Click += LangMenuItem_Click;

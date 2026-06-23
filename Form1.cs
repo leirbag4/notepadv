@@ -157,7 +157,12 @@ public partial class Form1 : Form
         scrollBarCorner.Location =          new Point(scintilla.Right - scrollBarCorner.Width, scintilla.Bottom - scrollBarCorner.Height);
         scrollBarCorner.Anchor =            AnchorStyles.Bottom | AnchorStyles.Right;
 
-        scintilla.SizeChanged += (s, e) => RefreshScrollBarsVisibility();
+        scintilla.SizeChanged += (s, e) =>
+        {
+            OnVerticalScrollChanged(scintilla.GetVScrollInfo(), scintilla.FirstVisibleLine);
+            OnHorizontalScrollChanged(scintilla.GetHScrollInfo(), scintilla.XOffset);
+            RefreshScrollBarsVisibility();
+        };
 
         Controls.Add(vertScrollBar);
         Controls.Add(horScrollBar);
@@ -171,18 +176,11 @@ public partial class Form1 : Form
 
     private void RefreshScrollBarsVisibility()
     {
-        bool vscrollVisible =   vertScrollBar.Maximum >= vertScrollBar.LargeChange;
-        bool hscrollVisible =   horScrollBar.Maximum >= horScrollBar.LargeChange;
+        bool vscrollVisible =   scintilla.IsVerticalScrollVisible;
+        bool hscrollVisible =   scintilla.IsHorizontalScrollVisible;
 
-        if (hscrollVisible)
-            vertScrollBar.Height = scintilla.Height - horScrollBar.Height;
-        else
-            vertScrollBar.Height = scintilla.Height;
-
-        if (vscrollVisible)
-            horScrollBar.Width = scintilla.Width - vertScrollBar.Width;
-        else
-            horScrollBar.Width = scintilla.Width;
+        vertScrollBar.Height =  scintilla.Height - (hscrollVisible ? horScrollBar.Height : 0);
+        horScrollBar.Width =    scintilla.Width  - (vscrollVisible ? vertScrollBar.Width : 0);
 
         vertScrollBar.Location =    new Point(scintilla.Right - vertScrollBar.Width, scintilla.Top);
         horScrollBar.Location =     new Point(scintilla.Left, scintilla.Bottom - horScrollBar.Height);

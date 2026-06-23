@@ -50,6 +50,13 @@ namespace Notepadv.VampEditor
         [DllImport("user32")]
         private static extern int GetScrollInfo(IntPtr hwnd, int nBar, ref ScrollInfo scrollInfo);
 
+        [DllImport("user32")]
+        private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
+        private static readonly int GWL_STYLE = -16;
+        private static readonly int WS_HSCROLL = 0x100000;
+        private static readonly int WS_VSCROLL = 0x200000;
+
         public delegate void ContextItemPressedEvent(EditorEventType eventType);
         public delegate void PositionChangedEvent(VampirioEditor editor, int lineNumber, int columnNumber, int position);
         public event ContextItemPressedEvent ContextItemPressed;
@@ -58,15 +65,11 @@ namespace Notepadv.VampEditor
         public event ScrollEvent HorizontalScrollChanged;
 
         public int CurrentColumn { get { return GetColumn(CurrentPosition); } }
-        public bool IsVerticalScrollVisible { get { return (Lines.Count > LinesOnScreen); } }
+        public bool IsVerticalScrollVisible { get { return (GetWindowLong(Handle, GWL_STYLE) & WS_VSCROLL) != 0; } }
+        public bool IsHorizontalScrollVisible { get { return (GetWindowLong(Handle, GWL_STYLE) & WS_HSCROLL) != 0; } }
 
         private ContextMenu<ItemType> menu;
         private bool _highlighted = false;
-
-        private int _oldFirstVisibleLine =  -1;
-        private int _oldXOffset =           -1;
-        private ScrollInfo _oldVScrollInfo = new ScrollInfo();
-        private ScrollInfo _oldHScrollInfo = new ScrollInfo();
 
         public VampirioEditor()
         {
@@ -193,33 +196,14 @@ namespace Notepadv.VampEditor
             RaiseEvents();
             HighlightBraces();
 
-            ScrollInfo vscrollInfo = GetVScrollInfo();
-            ScrollInfo hscrollInfo = GetHScrollInfo();
-
-            if (HasScrollInfoChanged(ref _oldVScrollInfo, ref vscrollInfo) || (_oldFirstVisibleLine != FirstVisibleLine))
-                OnVerticalScroll(GetVScrollInfo(), FirstVisibleLine);
-
-            if (HasScrollInfoChanged(ref _oldHScrollInfo, ref hscrollInfo) || (_oldXOffset != XOffset))
-                OnHorizontalScroll(GetHScrollInfo(), XOffset);
-
-            _oldFirstVisibleLine =  FirstVisibleLine;
-            _oldXOffset =           XOffset;
-
-            _oldVScrollInfo =       vscrollInfo;
-            _oldHScrollInfo =       hscrollInfo;
+            // Always fire both scroll events every cycle. The Form1 handler
+            // guards with if(scroll.Maximum != scrollInfo.max) etc., so stale
+            // values are no-ops. This catches GetScrollInfo lag when a scrollbar
+            // first appears (max/nPage may take 1-2 cycles to update).
+            OnVerticalScroll(GetVScrollInfo(), FirstVisibleLine);
+            OnHorizontalScroll(GetHScrollInfo(), XOffset);
 
             base.OnUpdateUI(e);
-        }
-
-        private bool HasScrollInfoChanged(ref ScrollInfo scroll, ref ScrollInfo scroll2)
-        {
-            return ( (scroll.cbSize    != scroll2.cbSize)   ||
-                     (scroll.fMask     != scroll2.fMask)    ||
-                     (scroll.min       != scroll2.min)      ||
-                     (scroll.max       != scroll2.max)      ||
-                     (scroll.nPage     != scroll2.nPage)    ||
-                     (scroll.nPos      != scroll2.nPos)     ||
-                     (scroll.nTrackPos != scroll2.nTrackPos));
         }
 
         private void RaiseEvents()

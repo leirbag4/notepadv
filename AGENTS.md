@@ -68,3 +68,45 @@
 - `UI/AboutUI.cs` + `.Designer.cs` — About dialog
 - `Res/Dialogs/` — dialog icon images
 - `AGENTS.md` — this file
+
+## Session 8 — DarkTitleBar, FindUI, GoToUI, Command-Line Args, App Icon
+- `DarkTitleBarHelper.cs` — DWM immersive dark mode on all forms via `DwmSetWindowAttribute`
+- `UI/FindUI.cs` — find/replace overlay (Ctrl+F / Ctrl+H) with ScintillaNET native search APIs, search highlighting (indicator 8), Replace All, history, match case/whole word/regex; wraps around with `SetSel(0, 0)`
+- `UI/GoToUI.cs` — borderless modal dialog centered on Scintilla, violet 2px border painted in OnPaint, numeric-only KeyPress filter, overlay via SimpleOverlay
+- `Program.cs` passes command-line file path to Form1 constructor
+- Application icon set via `<ApplicationIcon>` in .csproj + `Form1.Icon = Properties.Resources.app_icon`
+- All images embedded via `Properties/Resources.resx` (ResXFileRef), not loaded from disk at runtime
+- File > About moved to Help > About
+- Default "None" checked in language menu
+
+## Session 9 — ComboBoxAdv, VampirioEditor, ContextMenu, ScrollBarAdv Integration
+- `UI/Controls/ComboBoxAdv.cs` — custom dark ComboBox with WndProc custom painting from VampirioCode
+- `VampirioEditor.cs` copied from VampirioCode — wraps Scintilla with GetScrollInfo P/Invoke, scroll events, context menu, brace highlighting, smart indent via OnInsertCheck, Ctrl+X/C copy whole line if no selection
+- `VampEditor/UI/ContextMenu.cs` — generic `ContextMenu<T>` with dark renderer, ItemPressed and Opening events
+- `UI/Controls/ContextMenuRenderer.cs` — ToolStripProfessionalRenderer with dark colors, custom separator and border
+- `UI/Controls/ScrollBarAdv.cs` — exact copy from VampirioCode (double-buffered, custom thumb/track/button, drag support, auto-repeat timer, arrow polygons)
+- `UI/Controls/ScrollBarAdvance/` — 7 support files (ScrollEvent, ScrollBarOrientation, ScrollBarButton, ElementState, ColorState, ScrollBarElement, ScrollBarUtils)
+- Form1.Designer.cs changed `scintilla` type from `ScintillaNET.Scintilla` to `Notepadv.VampEditor.VampirioEditor`
+- Scrollbar integration: `CreateCustomScrollBars()`, `RefreshScrollBarsVisibility()`, event wiring
+- Output exe name changed to `notepadv.exe` via `<AssemblyName>notepadv</AssemblyName>`
+- Scrollbars brought to front after ShowFindUI to remain on top of FindUI
+
+## Session 10 — Scrollbar Bugfixes & Context Menu Refinements
+- `GetWindowLong` + `WS_HSCROLL`/`WS_VSCROLL` added for immediate scrollbar visibility detection (replacing `Lines.Count > LinesOnScreen`)
+- `SizeChanged` handler forces scroll events + `RefreshScrollBarsVisibility` — fixes scrollbar appearing with stale GetScrollInfo values
+- `g.Clear(trackColors.NormalColor)` in ScrollBarAdv.OnPaint — fixes background color mismatch from thumb padding gaps
+- Context menu: removed "Open output file" item; removed `OpenBinDirLocation`/`OpenOutputFilename` enums
+- Added "Open file location" — opens Windows Explorer with `/select` via `_currentFilePath`
+- Disabled (grayed out) when no file open via `HasFilePath` property + `OnContextOpening`
+- `HasFilePath` property added to VampirioEditor
+
+## Session 11 — New File, Undo/Redo, File > New: Ctrl+N
+- File > New (Ctrl+N) — prompts save if modified, clears text, resets file path/encoding/language to "None"
+- Edit > Undo (Ctrl+Z) and Edit > Redo (Ctrl+Shift+Z) with horizontal separator
+- In Progress: Undo grouping by word boundaries — Scintilla's default undo coalesces all typing into one action due to OnInsertCheck modifying Enter text. Plan: toggle `SCI_SETUNDOCOLLECTION` after space/tab/enter to create clean undo action boundaries (Sublime Text / VS Code behavior).
+
+## Next Steps (Session 11+)
+1. Implement word-boundary undo grouping in VampirioEditor:
+   - Override `OnKeyDown` to toggle undo collection after break keys (space, tab, enter)
+   - Consecutive Enters grouped as one undo action
+   - Arrow keys, mouse click, paste, backspace/delete as additional break points

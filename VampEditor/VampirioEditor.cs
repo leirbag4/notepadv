@@ -13,14 +13,12 @@ namespace Notepadv.VampEditor
         Paste,
         Delete,
         SelectAll,
-        OpenBinDirLocation,
         OpenFileLocation
     }
 
     public enum EditorEventType
     {
-        OpenFileLocation,
-        OpenOutputFilename
+        OpenFileLocation
     }
 
     public struct ScrollInfo
@@ -98,8 +96,6 @@ namespace Notepadv.VampEditor
             menu.AddSeparator();
             menu.AddItem(ItemType.Delete,               "Delete",                   Properties.Resources.omenu_mini_delete);
             menu.AddItem(ItemType.SelectAll,            "Select all",               Properties.Resources.omenu_mini_select_all);
-            menu.AddSeparator();
-            menu.AddItem(ItemType.OpenBinDirLocation,   "Open output file",         Properties.Resources.mmenu_mini_folder_b);
             menu.AddItem(ItemType.OpenFileLocation,     "Open file location",       Properties.Resources.mmenu_mini_folder);
             menu.OnItemPressed += OnContextItemPressed;
             menu.OnOpening +=     OnContextOpening;
@@ -123,7 +119,6 @@ namespace Notepadv.VampEditor
             else if(selection == ItemType.Delete)               { this.DeleteRange(this.SelectionStart, this.SelectedText.Length); }
             else if(selection == ItemType.SelectAll)            { this.SelectAll(); }
             else if(selection == ItemType.OpenFileLocation)     { if (ContextItemPressed != null) ContextItemPressed(EditorEventType.OpenFileLocation); }
-            else if(selection == ItemType.OpenBinDirLocation)   { if (ContextItemPressed != null) ContextItemPressed(EditorEventType.OpenOutputFilename); }
         }
 
         public void SetText(string text)

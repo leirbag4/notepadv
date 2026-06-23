@@ -116,6 +116,7 @@ public partial class Form1 : Form
 
         scintilla.VerticalScrollChanged += OnVerticalScrollChanged;
         scintilla.HorizontalScrollChanged += OnHorizontalScrollChanged;
+        scintilla.ContextItemPressed += OnEditorContextItemPressed;
 
         CreateCustomScrollBars();
 
@@ -219,6 +220,12 @@ public partial class Form1 : Form
         if (scroll.LargeChange != scrollInfo.nPage) scroll.LargeChange = scrollInfo.nPage;
         if (scroll.Value != position) scroll.Value = position;
         RefreshScrollBarsVisibility();
+    }
+
+    private void OnEditorContextItemPressed(EditorEventType eventType)
+    {
+        if (eventType == EditorEventType.OpenFileLocation && _currentFilePath != null)
+            System.Diagnostics.Process.Start("explorer.exe", "/select,\"" + _currentFilePath + "\"");
     }
 
     private void UpdateTitle()

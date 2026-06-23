@@ -128,5 +128,10 @@
 - `SetText()` (already in VampirioEditor) calls `EmptyUndoBuffer()` after setting text
 - Prevents Ctrl+Z from undoing back to previous file content
 
-## Next Steps (Session 14+)
+## Session 15 — Separator Background Fix
+- Added `OnRenderSeparator` override in `NotepadvRenderer`:
+  - Background fill with `#2D2D2D` (matches menu item background)
+  - Single 1px horizontal line with `#3C3C3C` at center (no double-line 3D effect)
+
+## Next Steps (Session 15+)
 - (none planned)

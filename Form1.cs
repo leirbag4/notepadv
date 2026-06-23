@@ -84,6 +84,16 @@ public class NotepadvRenderer : ToolStripProfessionalRenderer
         e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
         e.Graphics.FillEllipse(brush, centerX - radius, centerY - radius, radius * 2, radius * 2);
     }
+
+    protected override void OnRenderSeparator(ToolStripSeparatorRenderEventArgs e)
+    {
+        using var backBrush = new SolidBrush(Color.FromArgb(0x2D, 0x2D, 0x2D));
+        e.Graphics.FillRectangle(backBrush, 0, 0, e.Item.Width, e.Item.Height);
+
+        using var linePen = new Pen(Color.FromArgb(0x3C, 0x3C, 0x3C));
+        int y = e.Item.Height / 2;
+        e.Graphics.DrawLine(linePen, 4, y, e.Item.Width - 4, y);
+    }
 }
 
 public partial class Form1 : Form

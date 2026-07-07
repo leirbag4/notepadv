@@ -23,6 +23,7 @@ public class StyleManager
         Register(new HtmlStyle());
         Register(new CssStyle());
         Register(new BatStyle());
+        Register(new JsonStyle());
         Register(new MarkdownStyle());
     }
 

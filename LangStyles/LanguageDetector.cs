@@ -143,6 +143,18 @@ public class LanguageDetector
                 new Regex(@"\b(%%|%~|\*\.\w+)", RegexOptions.Multiline),
                 new Regex(@"^\s*rem\s+", RegexOptions.Multiline | RegexOptions.IgnoreCase),
             ]),
+            new("json",
+            [
+                new Regex(@"\{[\s\S]*?""[\w\s]+""\s*:", RegexOptions.Multiline),
+                new Regex(@"^\s*\{[\s\S]*?\}\s*$", RegexOptions.Multiline),
+                new Regex(@"""[\w\s]+""\s*:", RegexOptions.Multiline),
+                new Regex(@"\b(true|false|null)\b", RegexOptions.Multiline),
+            ],
+            [
+                new Regex(@"\[[\s\S]*?\]", RegexOptions.Multiline),
+                new Regex(@"^\s*\{", RegexOptions.Multiline),
+                new Regex(@"\b\d+\.?\d*\s*[,}\]\s]", RegexOptions.Multiline),
+            ]),
             new("markdown",
             [
                 new Regex(@"^#{1,6}\s+\w", RegexOptions.Multiline),

@@ -301,6 +301,7 @@ public partial class Form1 : Form
         [".css"] = "CSS",
         [".md"] = "Markdown", [".markdown"] = "Markdown",
         [".bat"] = "Batch", [".cmd"] = "Batch",
+        [".json"] = "JSON",
     };
 
     private void ApplyLanguageByExtension(string? filePath)

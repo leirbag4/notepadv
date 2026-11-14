@@ -10,66 +10,77 @@ namespace Notepadv.UI.Controls
         [Category("Extra Properties")]
         [Description("Arrow Color")]
         [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Color ArrowColor { get; set; } = CColor(200);
 
         [Localizable(true)]
         [Category("Extra Properties")]
         [Description("Thumb Normal Color")]
         [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Color ThumbNormalColor { get { return thumbColors.NormalColor; } set { thumbColors.NormalColor = value; } }
 
         [Localizable(true)]
         [Category("Extra Properties")]
         [Description("Thumb Over Color")]
         [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Color ThumbOverColor { get { return thumbColors.OverColor; } set { thumbColors.OverColor = value; } }
 
         [Localizable(true)]
         [Category("Extra Properties")]
         [Description("Thumb Down Color")]
         [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Color ThumbDownColor { get { return thumbColors.DownColor; } set { thumbColors.DownColor = value; } }
 
         [Localizable(true)]
         [Category("Extra Properties")]
         [Description("Button Normal Color")]
         [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Color ButtonNormalColor { get { return buttonColors.NormalColor; } set { buttonColors.NormalColor = value; } }
 
         [Localizable(true)]
         [Category("Extra Properties")]
         [Description("Button Over Color")]
         [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Color ButtonOverColor { get { return buttonColors.OverColor; } set { buttonColors.OverColor = value; } }
 
         [Localizable(true)]
         [Category("Extra Properties")]
         [Description("Button Down Color")]
         [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Color ButtonDownColor { get { return buttonColors.DownColor; } set { buttonColors.DownColor = value; } }
 
         [Localizable(true)]
         [Category("Extra Properties")]
         [Description("Track Over to Button Color")]
         [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Color TrackOverToButtonColor { get { return buttonColors.ExtraColor; } set { buttonColors.ExtraColor = value; } }
 
         [Localizable(true)]
         [Category("Extra Properties")]
         [Description("Track Normal Color")]
         [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Color TrackNormalColor { get { return trackColors.NormalColor; } set { trackColors.NormalColor = value; } }
 
         [Localizable(true)]
         [Category("Extra Properties")]
         [Description("Track Over Color")]
         [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Color TrackOverColor { get { return trackColors.OverColor; } set { trackColors.OverColor = value; } }
 
         [Localizable(true)]
         [Category("Extra Properties")]
         [Description("Track Down Color")]
         [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Color TrackDownColor { get { return trackColors.DownColor; } set { trackColors.DownColor = value; } }
         #endregion
 
@@ -78,66 +89,77 @@ namespace Notepadv.UI.Controls
         [Category("Extra Properties")]
         [Description("Orientation")]
         [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public ScrollBarOrientation Orientation { get; set; } = ScrollBarOrientation.Vertical;
 
         [Localizable(true)]
         [Category("Extra Properties")]
         [Description("Minimum Thumb Size")]
         [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public int MinThumbSize { get; set; } = 10;
 
         [Localizable(true)]
         [Category("Extra Properties")]
         [Description("Button Size")]
         [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public int ButtonSize { get; set; } = 20;
 
         [Localizable(true)]
         [Category("Extra Properties")]
         [Description("Thumb Padding X")]
         [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public int ThumbPaddingX { get { return thumb.paddingX; } set { thumb.paddingX = value; } }
 
         [Localizable(true)]
         [Category("Extra Properties")]
         [Description("Thumb Padding Y")]
         [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public int ThumbPaddingY { get { return thumb.paddingY; } set { thumb.paddingY = value; } }
 
         [Localizable(true)]
         [Category("Extra Properties")]
         [Description("Allow Mouse Scrolling")]
         [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool AllowMouseScrolling { get; set; } = true;
 
         [Localizable(true)]
         [Category("Extra Properties")]
         [Description("Minimum")]
         [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public int Minimum { get { return minimum; } set { minimum = value; RefreshAll(); } }
 
         [Localizable(true)]
         [Category("Extra Properties")]
         [Description("Maximum")]
         [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public int Maximum { get { return maximum; } set { maximum = value; RefreshAll(); } }
 
         [Localizable(true)]
         [Category("Extra Properties")]
         [Description("Small Change")]
         [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public int SmallChange { get { return smallChange; } set { smallChange = value; RefreshAll(); } }
 
         [Localizable(true)]
         [Category("Extra Properties")]
         [Description("Large Change")]
         [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public int LargeChange { get { return largeChange; } set { largeChange = value; RefreshAll(); } }
 
         [Localizable(true)]
         [Category("Extra Properties")]
         [Description("Value")]
         [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public int Value { get { return _value; } set { int val = value; if (val < minimum) val = minimum; else if (val > (maximum - largeChange + 1)) val = (maximum - largeChange + 1); if (val == _value) return; SetValue((float)val); Invalidate(); } }
         #endregion
 

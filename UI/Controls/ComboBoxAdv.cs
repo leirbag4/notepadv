@@ -10,6 +10,7 @@ public class ComboBoxAdv : ComboBox
     [Category("Extra Properties")]
     [Description("Border Color")]
     [Browsable(true)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public Color BorderColor
     {
         get { return _borderColor; }
@@ -20,6 +21,7 @@ public class ComboBoxAdv : ComboBox
     [Category("Extra Properties")]
     [Description("Border Size")]
     [Browsable(true)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public int BorderSize
     {
         get { return _borderSize; }
@@ -31,6 +33,7 @@ public class ComboBoxAdv : ComboBox
     [Browsable(true)]
     public event KeyPressedEventHandler EnterPressed;
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public Color ButtonColor
     {
         get { return _ButtonColor; }

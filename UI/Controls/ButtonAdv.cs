@@ -28,6 +28,7 @@ public class ButtonAdv : Button
     [Category("Extra Properties")]
     [Description("Process Enter Key")]
     [Browsable(true)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public bool processEnterKey
     {
         set { _processEnterKey = value; }
@@ -38,6 +39,7 @@ public class ButtonAdv : Button
     [Category("Extra Properties")]
     [Description("Extra Text")]
     [Browsable(true)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public String extraText
     {
         set { _extraText = value; }
@@ -48,6 +50,7 @@ public class ButtonAdv : Button
     [Category("Extra Properties")]
     [Description("Extra Text Align")]
     [Browsable(true)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public ContentAlignment extraTextAlign
     {
         set
@@ -66,6 +69,7 @@ public class ButtonAdv : Button
     [Category("Extra Properties")]
     [Description("Extra Text Offset")]
     [Browsable(true)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public Point extraTextOffset
     {
         set { _extraTextOffset = value; }
@@ -76,6 +80,7 @@ public class ButtonAdv : Button
     [Category("Extra Properties")]
     [Description("Extra Text Font")]
     [Browsable(true)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public Font extraTextFont
     {
         set { _extraTextFont = value; }
@@ -86,6 +91,7 @@ public class ButtonAdv : Button
     [Category("Extra Properties")]
     [Description("Extra Text Color")]
     [Browsable(true)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public Color extraTextColor
     {
         set { _extraTextColor = value; }
@@ -96,6 +102,7 @@ public class ButtonAdv : Button
     [Category("Extra Properties")]
     [Description("Expand Image")]
     [Browsable(true)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public bool expandImage
     {
         set { _expandImage = value; }
@@ -106,6 +113,7 @@ public class ButtonAdv : Button
     [Category("Extra Properties")]
     [Description("Resize Image")]
     [Browsable(true)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public Point resizeImage
     {
         set
@@ -125,6 +133,7 @@ public class ButtonAdv : Button
     [Category("Extra Properties")]
     [Description("Custom Visual Style")]
     [Browsable(true)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public CustomStyle CStyle
     {
         get { return _customStyle; }
@@ -135,6 +144,7 @@ public class ButtonAdv : Button
     [Category("Extra Properties")]
     [Description("Border Color")]
     [Browsable(true)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public Color BorderColor
     {
         get { return _borderColor; }
@@ -145,6 +155,7 @@ public class ButtonAdv : Button
     [Category("Extra Properties")]
     [Description("Border Size")]
     [Browsable(true)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public int BorderSize
     {
         get { return _borderSize; }
@@ -155,6 +166,7 @@ public class ButtonAdv : Button
     [Category("Extra Properties")]
     [Description("Selected Color")]
     [Browsable(true)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public Color SelectedColor
     {
         get { return _selectedColor; }
@@ -165,6 +177,7 @@ public class ButtonAdv : Button
     [Category("Extra Properties")]
     [Description("Selected")]
     [Browsable(true)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public bool Selected
     {
         get { return _selected; }
@@ -175,6 +188,7 @@ public class ButtonAdv : Button
     [Category("Extra Properties")]
     [Description("Focus Color")]
     [Browsable(true)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public Color FocusColor
     {
         get { return _focusColor; }
@@ -185,6 +199,7 @@ public class ButtonAdv : Button
     [Category("Extra Properties")]
     [Description("Focus Color")]
     [Browsable(true)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public bool FocusEnabled
     {
         get { return _focusEnabled; }
@@ -195,6 +210,7 @@ public class ButtonAdv : Button
     [Category("Extra Properties")]
     [Description("Paint Image On Selected")]
     [Browsable(true)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public bool PaintImageOnSelected
     {
         get { return _paintImageOnSelected; }

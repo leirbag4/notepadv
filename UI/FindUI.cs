@@ -1,6 +1,7 @@
 using ScintillaNET;
 using Notepadv.UI.Controls;
 using Notepadv.UI.Controls.Events;
+using System.ComponentModel;
 
 namespace Notepadv.UI;
 
@@ -19,6 +20,7 @@ public partial class FindUI : UserControl
     private ComboBoxAdv? _lastFocusedInput;
 
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public bool OptionsVisible
     {
         get => optionsGBox.Visible;

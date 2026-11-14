@@ -1,4 +1,5 @@
 using System.Drawing.Imaging;
+using System.ComponentModel;
 
 namespace Notepadv.UI.Controls;
 
@@ -9,6 +10,7 @@ public class PictureBoxAdv : PictureBox
     private Bitmap? _originalColorImage;
     private Bitmap? _grayscaleImage;
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public new Image? Image
     {
         get => base.Image;
@@ -21,6 +23,7 @@ public class PictureBoxAdv : PictureBox
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public new bool Enabled
     {
         get => base.Enabled;

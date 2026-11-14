@@ -1,6 +1,7 @@
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using ScintillaNET;
+using System.ComponentModel;
 
 namespace Notepadv.VampEditor
 {
@@ -65,6 +66,7 @@ namespace Notepadv.VampEditor
         public int CurrentColumn { get { return GetColumn(CurrentPosition); } }
         public bool IsVerticalScrollVisible { get { return (GetWindowLong(Handle, GWL_STYLE) & WS_VSCROLL) != 0; } }
         public bool IsHorizontalScrollVisible { get { return (GetWindowLong(Handle, GWL_STYLE) & WS_HSCROLL) != 0; } }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool HasFilePath { get; set; }
 
         private const int SCI_BEGINUNDOACTION = 2078;

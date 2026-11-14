@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace Notepadv.UI.Controls;
 
 public class LabelAdv : Label
@@ -12,12 +14,19 @@ public class LabelAdv : Label
     private float _modifyClampMax;
     private string _modifyControlName = "";
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public CustomStyle CStyle { get => _customStyle; set { _customStyle = value; Invalidate(); } }
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public Color BorderColor { get => _borderColor; set { _borderColor = value; Invalidate(); } }
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public int BorderSize { get => _borderSize; set { _borderSize = value; Invalidate(); } }
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public float ModifyScale { get => _modifyScale; set => _modifyScale = value; }
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public float ModifyClampMin { get => _modifyClampMin; set => _modifyClampMin = value; }
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public float ModifyClampMax { get => _modifyClampMax; set => _modifyClampMax = value; }
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public string ModifyControlName { get => _modifyControlName; set => _modifyControlName = value; }
 
     public LabelAdv()

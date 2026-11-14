@@ -1,4 +1,5 @@
 using Notepadv.UI.Controls.Events;
+using System.ComponentModel;
 
 namespace Notepadv.UI.Controls;
 
@@ -16,12 +17,19 @@ public class TextBoxAdv : TextBox
     public delegate void KeyPressedEventHandler(object sender, KeyPressedEventArgs e);
     public event KeyPressedEventHandler? EnterPressed;
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public string? ExcludeCharacters { get => _excludeCharacters; set => _excludeCharacters = value; }
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public string? IncludeOnlyCharacters { get => _includeOnlyCharacters; set => _includeOnlyCharacters = value; }
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public bool AllowBackspace { get => _allowBackspace; set => _allowBackspace = value; }
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public bool AllowTextEdition { get => _allowTextEdition; set => _allowTextEdition = value; }
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public bool AutoEdition { get => _autoEdition; set => _autoEdition = value; }
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public char LeftLeadingCharacter { get => _leftLeadingChar; set => _leftLeadingChar = value; }
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public bool AutoSelect { get => _autoSelect; set => _autoSelect = value; }
 
     public TextBoxAdv()

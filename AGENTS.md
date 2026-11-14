@@ -2,7 +2,7 @@
 
 ## Build Command
 ```powershell
-& "$env:USERPROFILE\.dotnet\dotnet.exe" build "C:\projects\notepadv\Notepadv.csproj"
+dotnet build "C:\projects\notepadv\Notepadv.csproj"
 ```
 
 ## Session 1 — Initial Setup & Language Styles
@@ -132,6 +132,15 @@
 - Added `OnRenderSeparator` override in `NotepadvRenderer`:
   - Background fill with `#2D2D2D` (matches menu item background)
   - Single 1px horizontal line with `#3C3C3C` at center (no double-line 3D effect)
+
+## Session 16 — Migración a .NET 10
+- `Notepadv.csproj`: `<TargetFramework>` cambiado de `net8.0-windows` a `net10.0-windows`
+- El build fallaba con 64 errores `WFO1000` (analizador de seguridad de WinForms: propiedades públicas de controles derivados de `Control` sin configuración de serialización)
+- Solución aplicada: se añadió `[DesignerSerializationVisibility(...)]` a cada propiedad señalada (no se suprimió el analizador):
+  - `Visible` en propiedades de apariencia/estilo (`BorderColor`, `BorderSize`, `CStyle`, colores de `ScrollBarAdv`, etc.) para mantener el comportamiento previo al analizador
+  - `Hidden` en estado de runtime: `VampirioEditor.HasFilePath`, `FindUI.OptionsVisible`
+- Archivos modificados: `ButtonAdv.cs`, `LabelAdv.cs`, `TextBoxAdv.cs`, `ComboBoxAdv.cs`, `GroupBoxAdv.cs`, `PictureBoxAdv.cs`, `ScrollBarAdv.cs`, `DarkForm.cs`, `FindUI.cs`, `VampirioEditor.cs` (+ `using System.ComponentModel;` donde faltaba)
+- Verificado: `dotnet build` → 0 errores, 34 warnings (nullable preexistentes). Se ejecutó `notepadv.exe` y arranca correctamente sobre .NET 10 (SDK 10.0.404)
 
 ## Next Steps (Session 15+)
 - (none planned)

@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace Notepadv.UI.Controls;
 
 public class GroupBoxAdv : GroupBox
@@ -8,8 +10,11 @@ public class GroupBoxAdv : GroupBox
     private Color _borderColor = Color.DarkGray;
     private int _borderSize = 2;
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public CustomStyle CStyle { get => _customStyle; set { _customStyle = value; Invalidate(); } }
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public Color BorderColor { get => _borderColor; set { _borderColor = value; Invalidate(); } }
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public int BorderSize { get => _borderSize; set { _borderSize = value; Invalidate(); } }
 
     public GroupBoxAdv()

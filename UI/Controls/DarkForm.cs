@@ -1,11 +1,14 @@
 using Notepadv.UI.Style;
 using Notepadv.UI.VampGraphics;
+using System.ComponentModel;
 
 namespace Notepadv.UI.Controls;
 
 public class DarkForm : Form
 {
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public Color BorderColor { get; set; } = Color.FromArgb(20, 20, 20);
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public int BorderSize { get; set; }
 
     public DarkForm()
